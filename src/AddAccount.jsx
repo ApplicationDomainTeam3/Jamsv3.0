@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import {db} from './firestore';
 import { collection, getDocs, addDoc} from "firebase/firestore"
+import { useNavigate } from "react-router-dom";
+
 
 export const accountsCollectionRef = collection(db,  "accounts");
 
@@ -13,6 +15,8 @@ export const AddAccount = () =>{
     const [newDebit, setNewDebit] = useState(0)
     const [newIB, setNewIB] = useState("")
     const [newDescription, setNewDescription] = useState("")
+    const navigate = useNavigate();
+
 
 
 
@@ -21,6 +25,8 @@ export const AddAccount = () =>{
    
     const createAccount = async () => {
         await addDoc(accountsCollectionRef, {name: newName, number: newNumber, category: newCategory, credit: newCredit, debit: newDebit, initialBalance: newIB, description: newDescription})
+        navigate("/adminhome/viewaccounts");
+
     }
 
    

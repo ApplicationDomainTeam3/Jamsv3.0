@@ -8,6 +8,7 @@ import { ImWarning } from 'react-icons/im';
 import {EditAccount} from './EditAccount';
 
 
+
 export const ViewAccounts = () =>{
 
 
@@ -26,6 +27,8 @@ export const ViewAccounts = () =>{
     const deactivateAccount = async (id) => {
         const accountDoc = doc(db, "accounts", id);
         await deleteDoc(accountDoc);
+        alert("Account deactivated");
+
 
     }
 
@@ -34,36 +37,43 @@ export const ViewAccounts = () =>{
         const accountDoc = doc(db, "accounts", id)
         const newFields = {name: newName}
         await updateDoc( accountDoc, newFields)
+        alert("Account updated");
     }
     const editNumber = async (id, number, newNumber) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {number: newNumber}
         await updateDoc( accountDoc, newFields)
+        alert("Account updated");
     }
     const editCategory = async (id, category, newCategory) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {category: newCategory}
         await updateDoc( accountDoc, newFields)
+        alert("Account updated");
     }
     const editCredit = async (id, credit, newCredit) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {credit: newCredit}
         await updateDoc( accountDoc, newFields)
+        alert("Account updated");
     }
     const editDebit = async (id, debit, newDebit) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {debit: newDebit}
         await updateDoc( accountDoc, newFields)
+        alert("Account updated");
     }
     const editIB = async (id, IB, newIB) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {IB: newIB}
         await updateDoc( accountDoc, newFields)
+        alert("Account updated");
     }
     const editDesc = async (id, description, newDescription) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {description: newDescription}
         await updateDoc( accountDoc, newFields)
+        alert("Account updated");
     }
 
     useEffect(() => {
