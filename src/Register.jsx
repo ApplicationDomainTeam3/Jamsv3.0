@@ -112,7 +112,7 @@ export const Register = (props) =>{
                     <label htmlFor="userPassword">password</label>
                     <input value={userPassword} onChange={(e) => setUserPassword(e.target.value)} type="password" placeholder="*******" id="password" name="password" onKeyUp={validatePassword} />
                     
-                        <button type="submit">Register New User</button>
+                    <button type="submit" id = "submitReg" onClick={ submitRegistration }>Register New User</button>
                     
 
                 </form>
