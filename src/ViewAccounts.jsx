@@ -27,7 +27,7 @@ export const ViewAccounts = () =>{
     const deactivateAccount = async (id) => {
         const accountDoc = doc(db, "accounts", id);
         await deleteDoc(accountDoc);
-        alert("Account deactivated");
+        alert("Account deactivated. Refresh to view changes");
 
 
     }
@@ -37,43 +37,43 @@ export const ViewAccounts = () =>{
         const accountDoc = doc(db, "accounts", id)
         const newFields = {name: newName}
         await updateDoc( accountDoc, newFields)
-        alert("Account updated");
+        alert("Account updated. Refresh to view changes");
     }
     const editNumber = async (id, number, newNumber) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {number: newNumber}
         await updateDoc( accountDoc, newFields)
-        alert("Account updated");
+        alert("Account updated. Refresh to view changes");
     }
     const editCategory = async (id, category, newCategory) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {category: newCategory}
         await updateDoc( accountDoc, newFields)
-        alert("Account updated");
+        alert("Account updated. Refresh to view changes");
     }
     const editCredit = async (id, credit, newCredit) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {credit: newCredit}
         await updateDoc( accountDoc, newFields)
-        alert("Account updated");
+        alert("Account updated. Refresh to view changes");
     }
     const editDebit = async (id, debit, newDebit) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {debit: newDebit}
         await updateDoc( accountDoc, newFields)
-        alert("Account updated");
+        alert("Account updated. Refresh to view changes");
     }
     const editIB = async (id, IB, newIB) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {IB: newIB}
         await updateDoc( accountDoc, newFields)
-        alert("Account updated");
+        alert("Account updated. Refresh to view changes");
     }
     const editDesc = async (id, description, newDescription) => {
         const accountDoc = doc(db, "accounts", id)
         const newFields = {description: newDescription}
         await updateDoc( accountDoc, newFields)
-        alert("Account updated");
+        alert("Account updated. Refresh to view changes");
     }
 
     useEffect(() => {
@@ -86,6 +86,12 @@ export const ViewAccounts = () =>{
         getAccounts();
     }, []);
 
+    //function for displaying cash amounts with commas where appropriate. Math.round...tofixed(2) makes it display two decimal points
+    function numberWithCommas(x) {
+
+        let num = x;
+        return ((Math.round(x * 100) / 100).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
    
 
     return(
@@ -128,7 +134,7 @@ export const ViewAccounts = () =>{
                             }}>update</button>
                         </div>}
                         <h3>credit</h3>
-                        <div><p>{account.credit}</p></div>
+                        <div><p>{numberWithCommas(account.credit)}</p></div>
                         <Link onClick={() => {seteditbox(true)}} className="va-button">
                             <a><IoIosCreate size={30}/></a>
                         </Link>
@@ -143,8 +149,8 @@ export const ViewAccounts = () =>{
                             }}>update</button>
                         </div>}
 
-                        <h3>Debit </h3>
-                        <div><p>{account.debit}</p></div>
+                        <h3>debit </h3>
+                        <div><p>{numberWithCommas(account.debit)}</p></div>
                         <Link onClick={() => {seteditbox(true)}} className="va-button">
                             <a><IoIosCreate size={30}/></a>
                         </Link>
@@ -178,7 +184,7 @@ export const ViewAccounts = () =>{
 
   
                         <h3>InitialBalance</h3>
-                        <div><p>{account.initialBalance}</p></div>
+                        <div><p>{numberWithCommas(account.initialbalance)}</p></div>
                         <Link onClick={() => {seteditbox(true)}} className="va-button">
                             <a><IoIosCreate size={30}/></a>
                         </Link>
