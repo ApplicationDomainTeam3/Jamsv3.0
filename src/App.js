@@ -19,6 +19,7 @@ import React, { useEffect, useState } from 'react';
 
 
 
+
 function App() {
 
 
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-    path: "register",
+    path: "Register",
     element: <Register />,
   },
   {
