@@ -12,7 +12,9 @@ import ProtectedRoutes from './ProtectedRoutes';
 import {AddAccount} from './AddAccount'
 import {EditAccount} from './EditAccount'
 import {ViewAccounts} from './ViewAccounts'
-import {DeactivateAccount} from './DeactivateAccount'
+import {disableUser} from './DeactivateAccount'
+import { AdminCreateUser } from './AdminCreateUser';
+import { ViewUsers } from './ViewUsers';
 import React, { useEffect, useState } from 'react';
 
 
@@ -58,9 +60,21 @@ const router = createBrowserRouter([
     element: <ViewAccounts />
   },
   {
-    path: "adminhome/deactivateaccount",
-    element: <DeactivateAccount />
+    path: "adminhome/AdminCreateUser",
+    element: <AdminCreateUser/>
   },
+
+  {
+    path: "adminhome/Deactivateaccount",
+    element: <disableUser/>
+  },
+
+  {
+    path: "adminhome/ViewUsers",
+    element: <ViewUsers/>
+  },
+
+  
 
   
     ]

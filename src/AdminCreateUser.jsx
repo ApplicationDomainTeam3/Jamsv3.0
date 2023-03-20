@@ -1,22 +1,21 @@
-import { defaultMaxListeners } from "events";
+import { useState, useEffect } from "react";
+import {db} from './firestore';
+import { collection, getDocs, addDoc} from "firebase/firestore"
+import { useNavigate } from "react-router-dom";
+import { Register } from "./Register"
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import React, {useState} from "react";
 import { auth, app } from "./firebase";
+import menuLogo from './img/JAMS_1563X1563.png'
 import MustContainElement from "./MustContainElement";
 import { Link } from "react-router-dom";
-import menuLogo from './img/JAMS_1563X1563.png'
-import {  } from 'firebase/auth'; 
-import { db } from "./firestore";
-import { collection, doc, setDoc, getDocs, addDoc } from "firebase/firestore";
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 
 
 
 
 
- {/* Administrator screen for registering user*/}
-export const Register = () =>{
+
+
+export const AdminCreateUser = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -113,18 +112,26 @@ export const Register = () =>{
                     <button className="link-btn">Login</button>
                 </Link>
                 <form className="register-form" onSubmit={registerFBUser}>
-                    <h2>Register</h2>
+                    <h2>Register a New User</h2>
                     <label htmlFor="firstname">First Name</label>
-                    <input value={firstname} onChange={(e) => setFirstname(e.target.value)} name="firstname" id="firstname" placeholder="Enter your first name..." />
+                    <input value={firstname} onChange={(e) => setFirstname(e.target.value)} name="firstname" id="firstname" placeholder="Enter the user's first name..." />
 
                     <label htmlFor="lastname">Last Name</label>
-                    <input value={lastname} onChange={(e) => setLastname(e.target.value)} name="lastname" id="lastname" placeholder="Enter your last name..." />
+                    <input value={lastname} onChange={(e) => setLastname(e.target.value)} name="lastname" id="lastname" placeholder="Enter the user's  last name..." />
 
-                    <label htmlFor="email">Email Adress</label>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter your Email Adress" id="email" name="email" />
+                    <label  htmlFor="role"> Role</label>
+                    
+                    <select value={role} onChange={(e) => setRole(e.target.value)}>
+                    <option value="admin">Admin</option>
+                    <option value="manager">Manager</option>
+                    <option value="accountant">Accountant</option>
+                    </select>
+
+                    <label htmlFor="email">Email</label>
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter the user's email address" id="email" name="email" />
 
                     <label htmlFor="address">Address</label>
-                    <input value={address} onChange={(e) => setAddress(e.target.value)} type="address" placeholder="Enter your Address" id="address" name="address" />
+                    <input value={address} onChange={(e) => setAddress(e.target.value)} type="address" placeholder="Enter the user's  address" id="address" name="address" />
 
                     <label htmlFor="dob">Date of Birth</label>
                     <input value={dob} onChange={(e) => setDob(e.target.value)} type="dob" placeholder="mm/dd/yy" id="dob" name="dob" />
@@ -145,6 +152,9 @@ export const Register = () =>{
             </div></>
 
     );
-}
 
-export default Register;
+
+
+
+}
+ 
