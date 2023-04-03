@@ -34,6 +34,13 @@ export const AdminHome = (props) => {
                     <AccountCircleIcon sx={{ fontSize: 50 }}/>
                 </div>
             </Link>
+            <Link to="adminCreateUser">
+                <div className = "card">
+                    <h3>Create<br></br> User</h3>
+                    <br></br>
+                    <ImPlus size={50}/>
+                </div>
+            </Link>
         </>
         
         );

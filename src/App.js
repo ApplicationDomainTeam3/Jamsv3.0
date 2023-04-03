@@ -15,7 +15,8 @@ import {ViewAccounts} from './ViewAccounts'
 import {ViewUsers} from './ViewUsers'
 import {DeactivateAccount} from './DeactivateAccount'
 import React, { useEffect, useState } from 'react';
-
+import {AccountantHome} from './AccountantHome';
+import {ManagerHome} from './ManagerHome';
 
 
 
@@ -59,12 +60,27 @@ const router = createBrowserRouter([
     element: <ViewAccounts />
   },
   {
-    path: "adminhome/viewusers",
-    element: <ViewUsers />
+    path: "adminhome/AdminCreateUser",
+    element: <AdminCreateUser/>
+  },
+
+  {
+    path: "adminhome/Deactivateaccount",
+    element: <disableUser/>
+  },
+
+  {
+    path: "adminhome/ViewUsers",
+    element: <ViewUsers/>
   },
   {
-    path: "adminhome/deactivateaccount",
-    element: <DeactivateAccount />
+    path: "accountanthome",
+    element: <AccountantHome />
+  },
+
+  {
+    path: "managerhome",
+    element: <ManagerHome />
   },
 
   
