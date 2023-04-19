@@ -15,6 +15,7 @@ import { usersCollectionRef } from './firebase.js';
 import { query, where } from "firebase/firestore";
 import { getDocs} from "firebase/firestore"
 import { auth } from './firebase.js';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 
 import 'reactjs-popup/dist/index.css';
@@ -29,6 +30,7 @@ import {
     uploadBytesResumable,
     getDownloadURL, 
 }from "firebase/storage"
+import { relative } from 'path-browserify';
 
 
 export function CreateJE({path, id, calcBalance, calcCredit, calcDebit}) {
@@ -50,6 +52,7 @@ const [dateFilter, setdateFilter] = useState('');
 const [amountFilter, setAmountFilter] = useState(0)
 const [username, setUsername] = useState("")
 const [role, setRole] = useState("")
+
 
 
 
@@ -100,8 +103,6 @@ useEffect(() => {
                 
             })
             
-
-
         }else{
             setAuthuser(null);//otherwise authuser is null
             
@@ -119,7 +120,7 @@ useEffect(() => {
 
 //////////// debits form ///////////////
 const [debitInputs, setDebitInput] = useState([
-    { id: uuidv4(), debit: 0.00},
+    { id: uuidv4(), debit: 0.00, account: ""},
    
 ]);
 
@@ -145,7 +146,7 @@ const submitDebits = (e) => {
 
 const handleAddDeb = (e) => {
     e.preventDefault()
-    setDebitInput([...debitInputs, {id: uuidv4(), debit: 0}])
+    setDebitInput([...debitInputs, {id: uuidv4(), debit: 0, account: ""}])
 }
 const handleRemDeb = (e, id) => {
     e.preventDefault();
@@ -155,7 +156,7 @@ const handleRemDeb = (e, id) => {
 }
 //////////// credits form ///////////////
 const [creditInputs, setCreditInput] = useState([
-    { id: uuidv4(), credit: 0.00},
+    { id: uuidv4(), credit: 0.00, account: ""},
    
 ]);
 
@@ -181,16 +182,30 @@ const submitCredits = (e) => {
 
 const handleAddCred = (e) => {
     e.preventDefault()
-    setCreditInput([...creditInputs, {id: uuidv4(), credit: 0}])
+    setCreditInput([...creditInputs, {id: uuidv4(), credit: 0, account: ""}])
 }
 const handleRemCred= (e, id) => {
     e.preventDefault();
     const values = [...creditInputs];
     values.splice(values.findIndex(value => value.id === id), 1);    setCreditInput(values);
 
-
-    
 }
+////////////check if debits and credits are equal//////////////////
+const checkEqual = (debits, credits) => {
+
+        let equals = false;
+        let ctotal = 0;
+        let dtotal = 0;
+        debits.map((d) => {dtotal +=d.debit});
+        credits.map((d) => {ctotal += d.credit})
+       if(dtotal === ctotal)
+       {
+        equals = true
+       }
+
+        return equals
+}
+
 //////////////////document upload functionality////////////////////
 
 function handleChange(event){
@@ -227,18 +242,25 @@ function handleUpload(){
     async function handleSubmit(e) {
         e.preventDefault();
 
-        console.log("there are this many debits: ", debitInputs.length)
-        if(debitInputs.at(0).debit > 0 && creditInputs.at(0).credit > 0){
-            const docRef=doc(db, path, refid);
-            await setDoc(docRef, {jeNumber: refid,  debits: debitInputs, credits: creditInputs, description: description.current.value, files: attachedFile, dateTime: newDateTime, approved: approved, pr: postReference, user: username, role: role});
-            if(file)
-                {handleUpload();}
-            alert("Journal Entry Posted")
-            e.target.reset();
+        if(checkEqual(debitInputs, creditInputs))
+        {
+
+            if(debitInputs.at(0).debit > 0 && creditInputs.at(0).credit > 0){
+                const docRef=doc(db, path, refid);
+                await setDoc(docRef, {jeNumber: refid,  debits: debitInputs, credits: creditInputs, description: description.current.value, files: attachedFile, dateTime: newDateTime, approved: approved, pr: postReference, user: username, role: role});
+                if(file)
+                    {handleUpload();}
+                alert("Journal Entry Posted")
+                e.target.reset();
+            }
+            else{
+                alert("Journal entry must contain at least one debit and credit")
+            }
         }
         else{
-            alert("Journal entry must contain at least one debit and credit")
+            alert("Debits and Credits must be equal")
         }
+       
        
     }
 
@@ -249,15 +271,15 @@ function handleUpload(){
         <h3>Add New Journal Entry</h3>
             <div className="je-form-input">
                 <div className="je-box-1">
-                   
-                    <div className="debit-form">
+
+                <label htmlFor="debits">Debits</label>
+                    <div className="debit-container">
 
                         <Container>
                             
-                           
-                                <button className="custom-button" onClick={(e)=>submitDebits(e)}>add debits &nbsp;&nbsp;&nbsp;&nbsp;<IoIosCreate/></button>
+                        
                                 { debitInputs.map((debitInput)=>(
-                                    <div key={debitInput.id}>
+                                    <div className="debit-form" key={debitInput.id}>
                                          <TextField 
                                             name="debit"
                                             label="debit"
@@ -265,9 +287,27 @@ function handleUpload(){
 
                                             onChange={event => handleChangeDebit(debitInput.id, event)}
                                          />
-                                         
-                                         <button className='custom-button-je' onClick={(e)=> handleAddDeb(e)}><AiOutlinePlusSquare/></button>
-                                         <button className='custom-button-je'disabled={debitInputs.length === 1} onClick={(e)=> handleRemDeb(e, debitInput.id)}><AiOutlineMinusSquare/></button>
+                                      
+                                         <select className="je-select"  name="account"  onChange={event => handleChangeDebit(debitInput.id, event)}>
+                                            <option value="default">account...</option>
+                                            <option value="cash">cash</option>
+                                            <option value="accounts payable">accounts payable</option>
+                                            <option value="accounts receivable">accounts receivable</option>
+                                            <option value="salaries and benefits">salaries and benefits</option>
+                                            <option value="rent and overhead">rent and overhead</option>
+                                            <option value="inventory">inventory</option>
+                                            <option value="property and equipment">property and equipment</option>
+                                            <option value="equity capital">equity capital</option>
+                                            <option value="retained earnings">retained earnings</option>
+                                            <option value="net earnings">net earnings</option>
+                                            <option value="taxes">taxes</option>
+
+                                        </select>
+                                        <div className='addrem'>
+                                            <button className='custom-button-je' onClick={(e)=> handleAddDeb(e)}><AiOutlinePlusSquare size={20}/></button>
+                                            <button className='custom-button-je'disabled={debitInputs.length === 1} onClick={(e)=> handleRemDeb(e, debitInput.id)}><AiOutlineMinusSquare size={20}/></button>
+                                        </div>
+                                       
                                     </div>
                                 ))}
                               
@@ -275,14 +315,14 @@ function handleUpload(){
                         </Container>
                         
                     </div>
-                    <div className="debit-form">
+                    <label htmlFor="credits">Credits</label>
+                    <div className="debit-container">
 
                         <Container>
-                            
-                            
-                            <button onClick={(e)=>submitCredits(e)} className="custom-button" type="submit">add credits &nbsp;&nbsp;&nbsp;&nbsp;<IoIosCreate/></button>
+                                    
+                                    
                                 { creditInputs.map((creditInput)=>(
-                                    <div key={creditInput.id}>
+                                    <div className="debit-form" key={creditInput.id}>
                                         <TextField 
                                             name="credit"
                                             label="credit"
@@ -290,9 +330,26 @@ function handleUpload(){
 
                                             onChange={event=> handleChangeCredit(creditInput.id, event)}
                                         />
-                                        
-                                        <button className='custom-button-je' onClick={(e)=> handleAddCred(e)}><AiOutlinePlusSquare/></button>
-                                        <button className='custom-button-je'disabled={creditInputs.length === 1} onClick={(e)=> handleRemCred(e, creditInput.id)}><AiOutlineMinusSquare/></button>
+                                         <select className="je-select" name="account"  onChange={event => handleChangeCredit(creditInput.id, event)}>
+                                            <option value="default">account...</option>
+                                            <option value="cash">cash</option>
+                                            <option value="accounts payable">accounts payable</option>
+                                            <option value="accounts receivable">accounts receivable</option>
+                                            <option value="salaries and benefits">salaries and benefits</option>
+                                            <option value="rent and overhead">rent and overhead</option>
+                                            <option value="inventory">inventory</option>
+                                            <option value="property and equipment">property and equipment</option>
+                                            <option value="equity capital">equity capital</option>
+                                            <option value="retained earnings">retained earnings</option>
+                                            <option value="net earnings">net earnings</option>
+                                            <option value="taxes">taxes</option>
+
+                                        </select>
+                                        <div className="addrem">
+                                            <button className='custom-button-je' onClick={(e)=> handleAddCred(e)}><AiOutlinePlusSquare  size={20}/></button>
+                                            <button className='custom-button-je'disabled={creditInputs.length === 1} onClick={(e)=> handleRemCred(e, creditInput.id)}><AiOutlineMinusSquare size={20}/></button>
+                                        </div>
+                                       
                                     </div>
                                 ))}
                             

@@ -76,15 +76,18 @@
 }
 
 .custom-button-je {
-  
   font-size: 1.3rem;
   font-weight: 600;
-  padding: .5rem;
+  padding: .2rem;
   background:none;
   border-radius: 3px;
-  margin-top: 2rem;
   color:#b4fee7;
   box-shadow: 3px 3px 3px grey;
+}
+.addrem {
+  display: flex;
+  flex-direction: column;
+  
 }
 
 .custom-button-calc {
@@ -114,6 +117,7 @@
 }
 
 .debit-form{
+  
   display:flex;
   flex-direction: row;
   text-align: left;
@@ -227,6 +231,21 @@ select{
   border: none;
   border-radius: 10px;
   color: black;
+  background-color: white;
+}
+.je-select{
+  position: relative;
+  top: -10px;
+  margin: 0px;
+  margin-left: 2px;
+  padding: 1rem;
+  padding-top: 1px;
+  padding-bottom: 0px;
+  border: none;
+  border-radius: 0px;
+  box-shadow: 1px 1px 1px rgb(37, 37, 37);
+  color:  #b4fee7;
+  background-color: #8d5fc9;
 }
 
 

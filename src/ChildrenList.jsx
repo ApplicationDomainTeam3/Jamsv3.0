@@ -40,6 +40,14 @@ export function ChildrenList({path}){
            
             return listItems
            }
+            ////////////Print Account//////////////
+   const printAccount = (array) => {
+    
+   
+    const listItems = array.map((d) => <li  key={d.account}>{d.account}</li>);
+   
+    return listItems
+   }
     
 
 
@@ -71,8 +79,12 @@ export function ChildrenList({path}){
            
                 <td >{idx+1}</td>
                 <td>{doc.user}</td>
+                
+                <td>{printAccount(doc.debits)}</td>
                 <td>{printDebits(doc.debits)}</td>
+                <td>{printAccount(doc.credits)}</td>
                 <td >{printCredits(doc.credits)}</td>
+                
                 <td >{doc.description}</td>
                 <td>{doc.dateTime}</td>
                 <td> {doc.files.length > 0 &&
