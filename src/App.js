@@ -25,6 +25,7 @@ import React, { useEffect, useState } from 'react';
 import './bootstrap.css';
 import './App.css';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { CreateJE } from './CreateJE';
 
 
 
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
   {
     path: "home/addaccount",
     element: <AddAccount />
+  },
+  {
+    path:"home/createje",
+    element: <CreateJE/>
   },
   {
     path: "home/AdminCreateUser",

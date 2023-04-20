@@ -68,7 +68,11 @@ export function Navbar(){
                 <li></li>
                 <li><Link  to="home"><a>Dashboard</a></Link></li>
                 <li><Link to="home/viewaccounts"><a>View Accounts</a></Link></li>
-                <li><Link to="home/addaccount"><a>Add Accounts</a></Link></li>
+                {role === "admin" &&
+                    <li><Link to="home/addaccount"><a>Add Accounts</a></Link></li>
+                }
+                
+                <li><Link to="home/createje">Journal Entry</Link></li>
                 <li className="authdetails">< AuthDetails/></li>  {/*sign in info displayed in */}
             </ul>
         </div>: <></>}

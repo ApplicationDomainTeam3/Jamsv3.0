@@ -33,7 +33,7 @@ import {
 import { relative } from 'path-browserify';
 
 
-export function CreateJE({path, id, calcBalance, calcCredit, calcDebit}) {
+export function CreateJE() {
 
 const ref2 = useRef();
 const [authUser, setAuthuser] = useState(null);
@@ -61,7 +61,7 @@ useEffect(() => {
 
     const getCount =  async () => {
         
-        const coll = collection(db, path);
+        const coll = collection(db, "journalEntries");
         const snapshot = await getCountFromServer(coll);
         console.log(snapshot.data());
         
@@ -246,7 +246,7 @@ function handleUpload(){
         {
 
             if(debitInputs.at(0).debit > 0 && creditInputs.at(0).credit > 0){
-                const docRef=doc(db, path, refid);
+                const docRef=doc(db, "journalEntries", refid);
                 await setDoc(docRef, {jeNumber: refid,  debits: debitInputs, credits: creditInputs, description: description.current.value, files: attachedFile, dateTime: newDateTime, approved: approved, pr: postReference, user: username, role: role});
                 if(file)
                     {handleUpload();}

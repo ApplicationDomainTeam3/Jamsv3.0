@@ -5,6 +5,9 @@ import { IoIosCreate } from 'react-icons/io';
 import {Link, createSearchParams, useNavigate} from "react-router-dom"
 import { ImWarning } from 'react-icons/im';
 import { AiFillProfile } from 'react-icons/ai';
+import { usersCollectionRef } from './firebase';
+import { query, where } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import Table from 'react-bootstrap/Table';
 import menuLogo from './img/JAMS_1563X1563.png'
@@ -18,13 +21,51 @@ import { IoIosEye} from 'react-icons/io';
 export const ViewAccounts = () =>{
 
 
-    const navigate = useNavigate();
     const [accounts, setAccounts] = useState([]);
     const accountsCollectionRef = collection(db,  "accounts");
-  
+    const [authUser, setAuthuser] = useState(null);
+    const [role, setRole] = useState("")
+    const [userUID, setuserUID] = useState("")
+    const navigate = useNavigate();
+    const auth = getAuth();
+    const user = auth.currentUser;
     
+    
+//////////////////Get user data///////////////////////////////////
+    useEffect(() => {
+        const listen = onAuthStateChanged(auth, async (user) => {
+            if(user) {
+                setAuthuser(user) //if user us logged in, set authuser to the logged in user
+                setuserUID(user.uid)
+                
+                
+                const q = query(usersCollectionRef, where("userUID", "==", user.uid));
+               
 
-  
+                const querySnapshot = await getDocs(q);
+                if(querySnapshot.empty){
+                    console.log("no document")
+                }
+                querySnapshot.forEach((doc)=>{
+                    console.log(doc.id, " => ", doc.data());
+                    const data = doc.data();
+                    setRole(data.role)
+                    console.log("the user's role is: ", role)
+                })
+
+            }else{
+                setAuthuser(null);//otherwise authuser is null
+                
+            }
+            
+        });
+
+        return () => {
+            listen();
+        }
+
+    }, [authUser, userUID, role]);
+
 
     const deactivateAccount = async (id) => {
         const accountDoc = doc(db, "accounts", id);
@@ -108,8 +149,12 @@ export const ViewAccounts = () =>{
                             <th>Created By</th>
                             <th>Last Updated</th>
                             <th>View<br/>Ledger</th>
-                            <th>Edit</th>
-                            <th>Deactivate</th>
+                            {role === "admin" &&
+                            <>
+                                <th>Edit</th>
+                                <th>Deactivate</th></>
+                            }
+                            
 
                             </tr>
                         </thead>
@@ -126,6 +171,8 @@ export const ViewAccounts = () =>{
                             <td>
                                 <button className="custom-button-va" onClick={()=>{openLedger(account.id)}}><AiFillProfile size={25}/></button>
                             </td>
+                            {role === "admin" &&
+                            <>
                             <td>
                                 <button className="custom-button-va" onClick={()=>{editAccount(account.id)}}><IoIosCreate size={25}/></button>
                             </td>
@@ -133,7 +180,7 @@ export const ViewAccounts = () =>{
                                     <ImWarning size={25}/>
                                 </button>
                             </td>
-                           
+                            </>}
                             </tr>
                             ))}
                         </tbody>
