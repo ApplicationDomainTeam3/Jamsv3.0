@@ -24,11 +24,15 @@ import { JournalEntry } from './JournalEntry';
 import React, { useEffect, useState } from 'react';
 import './bootstrap.css';
 import './App.css';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 
 
 function App() {
 
 
+  const auth = getAuth();
+  const user = auth.currentUser;
   //Create routes for screen navigation
 const router = createBrowserRouter([
   {
@@ -154,8 +158,11 @@ createRoot(document.getElementById("root")).render(
   );
 }
 const AppLayout= () => {
+
+  
   return (
     <>
+   
       <div className="App">
       <Navbar />
       <Outlet />
