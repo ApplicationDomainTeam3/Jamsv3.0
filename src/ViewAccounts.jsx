@@ -89,12 +89,16 @@ export const ViewAccounts = () =>{
         
         <>
       
-        <div className="view-accounts-container"> 
+        <div > 
             
                     <>
                     
                     <h1>Chart of Accounts</h1>
+                    <div className="view-accounts-container">
                     <Table responsive striped bordered hover>
+                   
+                            
+                           
                         <thead>
                             <tr>
                             <th>#</th>
@@ -109,7 +113,8 @@ export const ViewAccounts = () =>{
 
                             </tr>
                         </thead>
-                        <tbody>
+                       
+                        <tbody >
                             {accounts && accounts.map((account) => (
                             <tr key={account.id}>
                             <td>{account.number}</td>
@@ -132,7 +137,9 @@ export const ViewAccounts = () =>{
                             </tr>
                             ))}
                         </tbody>
+                        
                     </Table>
+                   </div>
                      </>
 
                     

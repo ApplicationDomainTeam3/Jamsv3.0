@@ -23,6 +23,12 @@
   flex-direction: column;
 }
 
+.view-accounts-container{
+  display: block;
+  height: 55rem;
+  overflow: auto;
+}
+
 .je-form-container{
   display: flex;
   flex-direction: row;
@@ -234,15 +240,16 @@ select{
   background-color: white;
 }
 .je-select{
+  height: 4.5rem;
   position: relative;
-  top: -10px;
+ 
   margin: 0px;
   margin-left: 2px;
   padding: 1rem;
   padding-top: 1px;
   padding-bottom: 0px;
   border: none;
-  border-radius: 0px;
+  border-radius: 5px;
   box-shadow: 1px 1px 1px rgb(37, 37, 37);
   color:  #b4fee7;
   background-color: #8d5fc9;
