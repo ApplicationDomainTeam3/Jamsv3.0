@@ -276,7 +276,6 @@ function handleUpload(){
                     <div className="debit-container">
 
                         <Container>
-                            
                         
                                 { debitInputs.map((debitInput)=>(
                                     <div className="debit-form" key={debitInput.id}>
@@ -362,7 +361,7 @@ function handleUpload(){
              
                 <div className='je-box-2'>
                     <label htmlFor="description">Description</label>
-                    <input ref={description}/>
+                    <input placeholder="enter description..."ref={description}/>
 
                     <label htmlFor="file">Attach Doc</label>
                     <input  className="custom-button" type="file" accept=".pdf, .png, .jpg,.docx, .csv, .xls" onChange={handleChange}/>

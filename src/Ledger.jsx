@@ -118,7 +118,7 @@ export const Ledger = () => {
         <h1 className="page-title">Account Ledger</h1>
         
        <CreateJE path={`accounts/${accountID}/journalEntries`} id={accountID} calcBalance={NetBalance} calcCredit={credit} calcDebit={debit} />
-    \
+    
        
         <Table responsive striped bordered hover>
             <thead>
