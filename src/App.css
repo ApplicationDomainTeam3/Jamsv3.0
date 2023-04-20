@@ -11,14 +11,38 @@
   background-image: linear-gradient(40deg, #B4FEE7, #A16AE8 90%);
 }
 
-.auth-form-container, .login-form, .register-form, .forgotpass-form, .debits-form, .credits-form {
+ .login-form, .register-form, .forgotpass-form, .debits-form, .credits-form {
   
   display: flex;
   flex-direction: column;
   
 }
+.aa-form-container{
+  align-content: center;
+  display: table-column;
+  
+  width: 40%;
+  padding: 2rem;
+  background: #A16AE8;
+  border-radius: 10px;
+  margin-top:5rem;
+  
+  color: white;
+  box-shadow: 3px 5px 5px grey;
+}
+.addaccount-form{
+  display: flex;
+  flex-direction: row;
+}
 
-.aa-form-container, .addaccount-form, .view-accounts-container, .ledger-container, .edit-form-container {
+.dashbox{
+  display: flex;
+  flex-direction: row;
+}
+.dash-container{
+  display: table;
+}
+.view-accounts-container, .ledger-container, .edit-form-container {
   display: flex;
   flex-direction: column;
 }

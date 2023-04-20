@@ -5,14 +5,16 @@ import { ImWarning } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { BiAddToQueue} from 'react-icons/bi';
-
+import { RxActivityLog } from "react-icons/rx";
 
 
 export const AdminHome = (props) => {
 
     return (
         <>
-            <Link to="addaccount">
+        <div className='dash-container'>
+        <div className="dashbox">
+        <Link to="addaccount">
                 <div className = "card">
                     <h3>Add<br></br> Account</h3>
                     <br></br>
@@ -26,7 +28,10 @@ export const AdminHome = (props) => {
                     <ImEye size={50}/>
                 </div>
             </Link>
-            <Link to="viewusers">
+
+        </div>
+        <div  className="dashbox">
+        <Link to="viewusers">
                 <div className = "card">
                     <h3>View</h3>
                     
@@ -46,9 +51,13 @@ export const AdminHome = (props) => {
                 <div className = "card">
                     <h3>Event<br></br> Log</h3>
                     <br></br>
-                    <AiOutlineUserAdd size={50}/>
+                    <RxActivityLog size={50}/>
                 </div>
             </Link>
+        </div>
+        
+        </div>
+      
         
         </>
         

@@ -8,6 +8,8 @@ import { AdminHome } from './AdminHome';
 import { ManagerHome } from './ManagerHome'
 import {AccountantHome} from './AccountantHome'
 import { useNavigate } from "react-router-dom";
+import menuLogo from './img/JAMS_1563X1563.png'
+
 
 
 export const Home= () => {
@@ -59,6 +61,11 @@ export const Home= () => {
 
     return (
         <>
+        <div className = "big-logo">
+            <img src={menuLogo} alt="logo"/>
+
+        </div>
+       
         {role === "admin" &&
             <AdminHome />
         }

@@ -15,14 +15,8 @@ import { usersCollectionRef } from './firebase.js';
 import { query, where } from "firebase/firestore";
 import { getDocs} from "firebase/firestore"
 import { auth } from './firebase.js';
-import Dropdown from 'react-bootstrap/Dropdown';
-
 
 import 'reactjs-popup/dist/index.css';
-
-
-
-
 
 
 import {
@@ -138,11 +132,7 @@ const handleChangeDebit = (id, event) => {
    console.log("the debit inputs are now: ",debitInputs)
 }
 
-const submitDebits = (e) => {
-    e.preventDefault();
-    console.log("submitted debits: ", debitInputs)
-    alert("Added debits: ", debitInputs[0])
-}
+
 
 const handleAddDeb = (e) => {
     e.preventDefault()
@@ -174,11 +164,7 @@ const handleChangeCredit = (id, event) => {
    
 }
 
-const submitCredits = (e) => {
-    e.preventDefault();
-    console.log("submitted credits: ", creditInputs)
-    alert("Added credits: ", creditInputs[0])
-}
+
 
 const handleAddCred = (e) => {
     e.preventDefault()
