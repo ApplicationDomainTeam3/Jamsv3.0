@@ -39,9 +39,15 @@ export const AddAccount = () =>{
     const [postReference, setPostReference] = useState("")
     const [username, setUsername] = useState("")
     const [role, setRole] = useState("")
-    //const [balance, setBalance] = useState(0)
     const usersCollectionRef = collection(db, 'users');
     const [userUID, setuserUID] = useState("")
+    const [dupName, setDupName] = useState(false)
+    const [dupNum, setDupNum] = useState(false)
+
+    const ref2 = useRef();
+
+    const close = () => ref2.current.close();
+
 
 
 
@@ -84,9 +90,46 @@ useEffect(() => {
   
     
     //querying the database for duplicate entries
-    const checkDup = async (nameChk) => {
+    const checkDupName = async (nameChk) => {
         
-        let dup = false;
+        const q = query(accountsCollectionRef, where("name", "==", nameChk));
+           
+
+        const querySnapshot = await getDocs(q);
+        if(querySnapshot.empty){
+            setNewName(nameChk)
+            setDupName(false)
+            
+        }
+        else{
+            alert("Duplicate name!")
+            console.log("dupcheck returning true")
+
+           setDupName(true)
+
+        }
+       
+
+    }
+    const checkDupNumber = async (numChk) => {
+        
+        const q = query(accountsCollectionRef, where("number", "==", numChk));
+           
+
+        const querySnapshot = await getDocs(q);
+        if(querySnapshot.empty){
+            setNewNumber(numCheck)
+            setDupNum(false)
+            
+        }
+        else{
+            alert("Duplicate number!")
+            console.log("dupcheck returning true")
+
+           setDupNum(true)
+
+        }
+       
 
     }
     const navigate = useNavigate();
@@ -96,8 +139,12 @@ useEffect(() => {
     //check that account number is a positive integer
     const accntnumChk =  (e) => {
         
+       
         if (numCheck.test(e)) 
-            setNewNumber(e)
+            {
+                checkDupNumber(e)
+            }
+            
       };
 
     //calculate the new balance on the account
@@ -122,8 +169,8 @@ useEffect(() => {
     const createAccount = async (e) => {
         e.preventDefault()
 
+       
         handleChangeCredit()
-        let dupAccount = false;
         let debitSum = sumDebit(debitInputs)
         console.log("the debit sum is", debitSum)
         let creditSum = sumCredit(creditInputs)
@@ -134,13 +181,13 @@ useEffect(() => {
         //dupAccount = checkDup(newName);
         
     //check to make sure valid entries for name and number have been entered, if so create account
-    if(newName !== '' && newNumber !== 0 && dupAccount === false){
+    if(newName !== '' && newNumber !== 0 && dupName === false && dupNum === false){
             await addDoc(accountsCollectionRef, {name: newName, number: newNumber, category: newCategory, credit: creditSum, debit: debitSum, initialBalance: newIB, balance: balance, description: newDescription, dateTime: newDateTime, user: authUser.email})
 
       
                 if(debitInputs.at(0).debit > 0 && creditInputs.at(0).credit > 0){
                     const docRef=doc(db, "journalEntries", refid);
-                    await setDoc(docRef, {jeNumber: refid,  debits: debitInputs, credits: creditInputs, description:newDescription,  dateTime: newDateTime, approved: approved, pr: postReference, user: username, role: role});
+                    await setDoc(docRef, {account: newName, jeNumber: refid,  debits: debitInputs, credits: creditInputs, description:newDescription,  dateTime: newDateTime, approved: approved, pr: postReference, user: username, role: role});
                     alert("Journal Entry Posted")
                 }
                 else{
@@ -149,11 +196,13 @@ useEffect(() => {
             
            
             navigate("/home/viewaccounts");}
-        else if(dupAccount === true){
-            alert("Account exists")}
+       
         else{
+           
             alert("Enter valid name/number")
         }
+
+        
 
     }
 /////////////////////////////get the user that posts the journal entry//////////////////////
@@ -266,9 +315,9 @@ const handleRemCred= (e, id) => {
         <h2>Add Account</h2>
           
             
-            <form className="addaccount-form" > 
+            <form id="addaccount-form" className="addaccount-form" > 
             <div className="je-box-2">
-            <input type="text" placeholder="Account Name..."  onChange={(event) => {setNewName(event.target.value)} }  />
+            <input type="text" placeholder="Account Name..."  onChange={(event) => {checkDupName(event.target.value)} }  />
 
                 <input type="number" placeholder="Number..."  onChange={(event) => {accntnumChk(event.target.value)}}  />
                 <select value={newCategory} onChange={(e) => setNewCategory(e.target.value)}>
@@ -342,11 +391,22 @@ const handleRemCred= (e, id) => {
                 <input type="ib" placeholder="initial balance..." onChange={(event) => {setNewIB(parseFloat(event.target.value))}}/>
                 <input type="description" placeholder="description" onChange={(event) => {setNewDescription(event.target.value)}}/>
                   
-                <button className="custom-button" onClick={(e)=> { 
-                createAccount(e)
-                }
-                }>Add Account</button>             
+               
+
+                <Popup ref={ref2} trigger={open => (   <button type="button" className="custom-button" >Create Account&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BiUpload size={25}/></button>  )} position='center center'  arrow={false} modal closeOnDocumentClick>
+                   
+                    
+                        <h4>Create Account?</h4>
+                    <button form="addaccount-form" className="custom-button" type="submit" onClick={(e)=> { 
+                                                                                                         createAccount(e)
+                    }}>Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onClick={()=>close()} className="custom-button">Cancel</button>
+                           
+                  
+               
+                </Popup>
+           
                 </div>
+                
               
             </form>
            

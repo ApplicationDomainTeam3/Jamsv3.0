@@ -127,6 +127,7 @@ export const Ledger = () => {
                 <th>Name</th>
                 <th>Category</th>
                 <th>Initial Balance</th>
+                <th>Current Balance</th>
                 <th>Description</th>
                 </tr>
             </thead>
@@ -136,6 +137,7 @@ export const Ledger = () => {
                     <td>{name}</td>
                     <td>{category}</td>
                     <td>{numberWithCommas(initialBalance)}</td>
+                    <td>{numberWithCommas(balance)}</td>
                     <td>{description}</td>
                 </tr>
             </tbody>
