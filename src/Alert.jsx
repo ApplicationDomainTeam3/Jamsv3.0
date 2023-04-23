@@ -13,6 +13,7 @@ export const Alert = ({ variant }) => {
         style={{
           background: variant.mainColor,
           border: "0.1rem solid " + variant.secondaryColor,
+          color: variant.secondaryColor
         }}
       >
         <div

@@ -15,6 +15,9 @@ import { usersCollectionRef } from './firebase.js';
 import { query, where } from "firebase/firestore";
 import { getDocs} from "firebase/firestore"
 import { auth } from './firebase.js';
+import { Alert } from "./Alert"
+import { variants } from "./variants"
+
 
 import 'reactjs-popup/dist/index.css';
 
@@ -46,6 +49,8 @@ const [dateFilter, setdateFilter] = useState('');
 const [amountFilter, setAmountFilter] = useState(0)
 const [username, setUsername] = useState("")
 const [role, setRole] = useState("")
+const [alert, setAlert] = useState(variants.at(0))
+const [showAlert, setShowAlert] = useState(false)
 
 
 
@@ -362,7 +367,10 @@ function handleUpload(){
                 <button form="je-form" className="custom-button" type="submit" >Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onClick={()=>close()} className="custom-button">Cancel</button>
             </Popup>;
 
-            
+            {showAlert === true &&
+           
+           <Alert variant={alert} />
+          }
            
         </div>
        

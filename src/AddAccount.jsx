@@ -125,7 +125,7 @@ useEffect(() => {
 
         const querySnapshot = await getDocs(q);
         if(querySnapshot.empty){
-            setNewNumber(numCheck)
+            setNewNumber(numChk)
             setDupNum(false)
             setShowAlert(false)
             
@@ -206,7 +206,7 @@ useEffect(() => {
                 }
             
            
-            navigate("/home/viewaccounts");}
+            }
        
         else{
            
