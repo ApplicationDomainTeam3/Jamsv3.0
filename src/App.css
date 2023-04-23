@@ -21,7 +21,7 @@
   align-content: center;
   display: table-column;
   
-  width: 40%;
+  width: 80%;
   padding: 2rem;
   background: #A16AE8;
   border-radius: 10px;
@@ -33,6 +33,7 @@
 .addaccount-form{
   display: flex;
   flex-direction: row;
+  
 }
 
 .dashbox{
@@ -342,4 +343,34 @@ select{
   }
 }
 
+.alert-container {
+  margin: 15px;
+  display: flex;
+  color:crimson;
+}
 
+.symbol-container {
+  width: 86px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.symbol {
+  font-size: 1.75rem;
+}
+
+.description-container {
+  font-size: 1.05rem;
+  margin: 15px 20px;
+  width: 100%;
+}
+
+.description-title {
+  font-weight: 700;
+}
+
+.symbol-close-link {
+  margin-top: -10px;
+  cursor: pointer;
+}

@@ -14,6 +14,8 @@ import { IoIosCreate } from 'react-icons/io';
 import { v4 as uuidv4 } from 'uuid';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
+import { Alert } from "./Alert"
+import { variants } from "./variants"
 
 
 
@@ -43,6 +45,8 @@ export const AddAccount = () =>{
     const [userUID, setuserUID] = useState("")
     const [dupName, setDupName] = useState(false)
     const [dupNum, setDupNum] = useState(false)
+    const [alert, setAlert] = useState(variants.at(0))
+    const [showAlert, setShowAlert] = useState(false)
 
     const ref2 = useRef();
 
@@ -99,10 +103,13 @@ useEffect(() => {
         if(querySnapshot.empty){
             setNewName(nameChk)
             setDupName(false)
+            setShowAlert(false)
             
         }
         else{
-            alert("Duplicate name!")
+            setAlert(variants.at(0))
+            setShowAlert(true)
+
             console.log("dupcheck returning true")
 
            setDupName(true)
@@ -120,10 +127,12 @@ useEffect(() => {
         if(querySnapshot.empty){
             setNewNumber(numCheck)
             setDupNum(false)
+            setShowAlert(false)
             
         }
         else{
-            alert("Duplicate number!")
+            setAlert(variants.at(1))
+            setShowAlert(true)
             console.log("dupcheck returning true")
 
            setDupNum(true)
@@ -188,10 +197,12 @@ useEffect(() => {
                 if(debitInputs.at(0).debit > 0 && creditInputs.at(0).credit > 0){
                     const docRef=doc(db, "journalEntries", refid);
                     await setDoc(docRef, {account: newName, jeNumber: refid,  debits: debitInputs, credits: creditInputs, description:newDescription,  dateTime: newDateTime, approved: approved, pr: postReference, user: username, role: role});
-                    alert("Journal Entry Posted")
+                    setShowAlert(true)
+                    setAlert(variants.at(5))
                 }
                 else{
-                    alert("Journal entry must contain at least one debit and credit")
+                     setShowAlert(true)
+                    setAlert(variants.at(3))
                 }
             
            
@@ -199,7 +210,8 @@ useEffect(() => {
        
         else{
            
-            alert("Enter valid name/number")
+            setShowAlert(true)
+            setAlert(variants.at(3))
         }
 
         
@@ -317,6 +329,7 @@ const handleRemCred= (e, id) => {
             
             <form id="addaccount-form" className="addaccount-form" > 
             <div className="je-box-2">
+               
             <input type="text" placeholder="Account Name..."  onChange={(event) => {checkDupName(event.target.value)} }  />
 
                 <input type="number" placeholder="Number..."  onChange={(event) => {accntnumChk(event.target.value)}}  />
@@ -328,8 +341,7 @@ const handleRemCred= (e, id) => {
                     <option value="equity">equity</option>
                 </select>
             </div>
-               
-    
+           
               
                 <div className="je-box-1">
 
@@ -409,8 +421,12 @@ const handleRemCred= (e, id) => {
                 
               
             </form>
+           {showAlert === true &&
            
+            <Alert variant={alert} />
+           }
             
+    
         </div>
         
         </>
