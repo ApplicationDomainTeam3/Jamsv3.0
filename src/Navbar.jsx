@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import menuLogo from './img/JAMS_313X313.png'
+import menuLogo from './img/jamstoast.png'
 import {AuthDetails } from './AuthDetails';
 import {Link, NavLink} from "react-router-dom"
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -19,6 +19,7 @@ export function Navbar(){
     const [authUser, setAuthuser] = useState(null);
     const [role, setRole] = useState("")
     const [userUID, setuserUID] = useState("")
+    const [firstName, setFirstName] = useState("")
     const navigate = useNavigate();
     const auth = getAuth();
     const user = auth.currentUser;
@@ -39,9 +40,11 @@ export function Navbar(){
                     console.log("no document")
                 }
                 querySnapshot.forEach((doc)=>{
-                    console.log(doc.id, " => ", doc.data());
+                   
                     const data = doc.data();
                     setRole(data.role)
+                    setFirstName(data.firstName)
+                    
                     console.log("the user's role is: ", role)
                 })
 
@@ -65,7 +68,7 @@ export function Navbar(){
                 <li className = "nav-logo"> 
                     <img src={menuLogo} alt="logo"/>
                 </li>
-                <li></li>
+                <li>Welcome {firstName}!</li>
                 <li><Link  to="home"><a>Dashboard</a></Link></li>
                 <li><Link to="home/viewaccounts"><a>View Accounts</a></Link></li>
                 {role === "admin" &&

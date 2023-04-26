@@ -21,7 +21,7 @@
   align-content: center;
   display: table-column;
   
-  width: 80%;
+  width: 60%;
   padding: 2rem;
   background: #A16AE8;
   border-radius: 10px;
@@ -31,6 +31,10 @@
   box-shadow: 3px 5px 5px grey;
 }
 .addaccount-form{
+  margin-top: 5rem;
+
+  align-content: center;
+
   display: flex;
   flex-direction: row;
   
@@ -50,11 +54,13 @@
 
 .view-accounts-container{
   display: block;
-  height: 55rem;
+  height: 50rem;
   overflow: auto;
+  margin-top: 5rem;
 }
 
 .je-form-container{
+  margin-top: 5rem;
   display: flex;
   flex-direction: row;
 }

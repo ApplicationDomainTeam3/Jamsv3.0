@@ -47,7 +47,6 @@ export const AuthDetails = () => {
                     const data = doc.data();
                     setFName(data.firstName)
                     setusername(data.username)
-                    console.log("the user's name is: ", firstname)
                 })
                 
 

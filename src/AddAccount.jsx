@@ -16,6 +16,8 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Alert } from "./Alert"
 import { variants } from "./variants"
+import menuLogo from './img/JAMS_1563X1563.png'
+
 
 
 
@@ -322,7 +324,10 @@ const handleRemCred= (e, id) => {
 
     return(
         <>
-      
+        <div className = "big-logo">
+            <img src={menuLogo} alt="logo"/>
+
+        </div>
         <div className="aa-form-container">
         <h2>Add Account</h2>
           

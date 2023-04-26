@@ -1,6 +1,8 @@
 ///////////Created by Ashly////////////////
 import React from "react";
-import { collection, query, where } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import {db} from './firestore';
 import { AiFillFileText } from 'react-icons/ai';
@@ -12,12 +14,16 @@ import {Link, createSearchParams, useNavigate} from "react-router-dom"
 
 
 
-export function ChildrenList({path}){
+export function ChildrenList({path, accountName}){
 
-    const query = collection(db, path)
-    const [docs, loading, error] = useCollectionData (query);
+    const query1 = collection(db,  "journalEntries")
+    const [docs, loading, error] = useCollectionData (query1);
+    const journalsCollectionRef = collection(db,  "journalEntries");
+     const navigate = useNavigate();
 
-    const navigate = useNavigate();
+    //////////////////Get Journal Entries associated with account///////////////////////////////////
+   
+ 
 
     /////////////Open attached document in a new tab/////////////
     const openInNewTab = (url) => {
@@ -73,38 +79,35 @@ export function ChildrenList({path}){
 
     return (
        <>
-     
-       {docs?.map((doc, idx)=>(
-        <tr key={Math.random()}>
-           
-                <td >{idx+1}</td>
-                <td>{doc.user}</td>
                 
-                <td>{printAccount(doc.debits)}</td>
-                <td>{printDebits(doc.debits)}</td>
-                <td>{printAccount(doc.credits)}</td>
-                <td >{printCredits(doc.credits)}</td>
-                
-                <td >{doc.description}</td>
-                <td>{doc.dateTime}</td>
-                <td> {doc.files.length > 0 &&
-                        <button role="link" className="custom-button-je" onClick={() => openInNewTab(doc.files)}><AiFillFileText size={25}/></button>
+       {docs?.map((doc)=>(
+            <tr key={Math.random()}>
+                {doc.debits.map((debitdoc)=>
+                    <>
+                    {debitdoc.account === accountName &&
+                        <>
+                        <td>{doc.jeNumber}</td>
+                        <td>{doc.user}</td>
+                        <td>${numberWithCommas(debitdoc.debit)}</td>
+                        </>
                     }
-                </td>
-                <td>
-                    <button className="link-btn" onClick={()=>openJournal(path, doc.jeNumber)}>{doc.pr}</button>
-                </td>
-                
-             
-   
-  
-
-
+                    <>
                     
+                        <td>{doc.description}</td>
+                        <td>{doc.dateTime}</td>
                     
-                
-                
-        </tr>
+                        <td> {doc.files?.length > 0 &&
+                            <button role="link" className="custom-button-je" onClick={() => openInNewTab(doc.files)}><AiFillFileText size={25}/></button>
+                        }
+                        </td>
+                        <td><button className="link-btn" onClick={()=>openJournal("journalEntries", doc.jeNumber)}>{doc.pr}</button></td>
+                        </>  
+                    </>  
+                )}
+                  {doc.credits.map((creditdoc)=>   
+                     <td>${numberWithCommas(creditdoc.credit)}</td>
+                  )}  
+            </tr>
         ))}
        </>
         

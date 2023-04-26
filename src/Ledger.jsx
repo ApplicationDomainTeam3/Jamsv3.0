@@ -116,9 +116,6 @@ export const Ledger = () => {
         
         <div className ="ledger-container">
         <h1 className="page-title">Account Ledger</h1>
-        
-       <CreateJE path={`accounts/${accountID}/journalEntries`} id={accountID} calcBalance={NetBalance} calcCredit={credit} calcDebit={debit} />
-    
        
         <Table responsive striped bordered hover>
             <thead>
@@ -142,16 +139,14 @@ export const Ledger = () => {
                 </tr>
             </tbody>
         </Table>
-        <h3>Journal Entries</h3>
+        <h3>Transactions</h3>
         {loading && "Loading..."}
         <Table  responsive striped bordered hover>
             <thead>
                 <tr>
                     <th>#</th>
                     <th>Posted by</th>
-                    <th>Account</th>
                     <th>Debit</th>
-                    <th>Account</th>
                     <th>Credit</th>
                     <th>Description</th>
                     <th>Date</th>
@@ -160,8 +155,8 @@ export const Ledger = () => {
                 </tr>
             </thead>
             <tbody>
-                
-            <ChildrenList path={`accounts/${accountID}/journalEntries`}/>
+           
+            <ChildrenList path={`accounts/`} accountName={name}/>
                       
             </tbody>
         </Table>

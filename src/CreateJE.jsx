@@ -134,7 +134,6 @@ const handleChangeDebit = (id, event) => {
    })
    
    setDebitInput(newDebitInputs)
-   console.log("the debit inputs are now: ",debitInputs)
 }
 
 
@@ -164,7 +163,6 @@ const handleChangeCredit = (id, event) => {
     
     return i;
    })
-   console.log("the credit inputs are:", newcreditInputs)
    setCreditInput(newcreditInputs)
    
 }
@@ -192,6 +190,7 @@ const checkEqual = (debits, credits) => {
        if(dtotal === ctotal)
        {
         equals = true
+        setShowAlert(false)
        }
 
         return equals
@@ -237,19 +236,23 @@ function handleUpload(){
         {
 
             if(debitInputs.at(0).debit > 0 && creditInputs.at(0).credit > 0){
+                setShowAlert(false)
                 const docRef=doc(db, "journalEntries", refid);
                 await setDoc(docRef, {jeNumber: refid,  debits: debitInputs, credits: creditInputs, description: description.current.value, files: attachedFile, dateTime: newDateTime, approved: approved, pr: postReference, user: username, role: role});
                 if(file)
                     {handleUpload();}
-                alert("Journal Entry Posted")
+                setAlert(variants.at(5))
+                setShowAlert(true)
                 e.target.reset();
             }
             else{
-                alert("Journal entry must contain at least one debit and credit")
+                setAlert(variants.at(3))
+              setShowAlert(true)
             }
         }
         else{
-            alert("Debits and Credits must be equal")
+            setAlert(variants.at(4))
+            setShowAlert(true)
         }
        
        

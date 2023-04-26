@@ -134,8 +134,9 @@ export const ViewAccounts = () =>{
             
                     <>
                     
-                    <h1>Chart of Accounts</h1>
+                   
                     <div className="view-accounts-container">
+                    <h1>Chart of Accounts</h1>
                     <Table responsive striped bordered hover>
                    
                             
