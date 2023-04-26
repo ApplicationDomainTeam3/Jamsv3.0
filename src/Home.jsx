@@ -65,8 +65,8 @@ export const Home= () => {
             <img src={menuLogo} alt="logo"/>
 
         </div>
-       
-        {role === "admin" &&
+       <div className="home-container">
+       {role === "admin" &&
             <AdminHome />
         }
          {role === "manager" &&
@@ -75,6 +75,8 @@ export const Home= () => {
          {role === "accountant" &&
             <AccountantHome />
         }
+       </div>
+       
         </>
         
          

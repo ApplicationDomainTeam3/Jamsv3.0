@@ -89,23 +89,45 @@ export function ChildrenList({path, accountName}){
                         <td>{doc.jeNumber}</td>
                         <td>{doc.user}</td>
                         <td>${numberWithCommas(debitdoc.debit)}</td>
-                        </>
-                    }
-                    <>
-                    
+                        <td></td>
                         <td>{doc.description}</td>
                         <td>{doc.dateTime}</td>
-                    
-                        <td> {doc.files?.length > 0 &&
+                        <td> {doc.files.length > 0 &&
                             <button role="link" className="custom-button-je" onClick={() => openInNewTab(doc.files)}><AiFillFileText size={25}/></button>
-                        }
+                            }
                         </td>
-                        <td><button className="link-btn" onClick={()=>openJournal("journalEntries", doc.jeNumber)}>{doc.pr}</button></td>
-                        </>  
+                        <td>
+                            <button className="link-btn" onClick={()=>openJournal(path, doc.jeNumber)}>{doc.pr}</button>
+                        </td>
+                        </>
+                    }
+                
                     </>  
                 )}
                   {doc.credits.map((creditdoc)=>   
-                     <td>${numberWithCommas(creditdoc.credit)}</td>
+                    <>
+                        {creditdoc.account === accountName &&
+                        <>
+                        <td>{doc.jeNumber}</td>
+                        <td>{doc.user}</td>
+                        <td></td>
+                        <td>${numberWithCommas(creditdoc.credit)}</td>
+                        <td>{doc.description}</td>
+                        <td>{doc.dateTime}</td>
+                        <td> {doc.files.length > 0 &&
+                            <button role="link" className="custom-button-je" onClick={() => openInNewTab(doc.files)}><AiFillFileText size={25}/></button>
+                            }
+                        </td>
+                        <td>
+                            <button className="link-btn" onClick={()=>openJournal(path, doc.jeNumber)}>{doc.pr}</button>
+                        </td>
+                        </>
+                    }
+
+                    
+                    </>
+                     
+                     
                   )}  
             </tr>
         ))}

@@ -41,6 +41,7 @@
 }
 
 .dashbox{
+  
   display: flex;
   flex-direction: row;
 }
@@ -48,8 +49,12 @@
   display: table;
 }
 .view-accounts-container, .ledger-container, .edit-form-container {
+  margin-top: 10rem;
   display: flex;
   flex-direction: column;
+}
+.home-container{
+  margin-top: 10rem;
 }
 
 .view-accounts-container{
