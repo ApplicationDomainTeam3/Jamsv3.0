@@ -13,19 +13,14 @@ import {CreateJE} from "./CreateJE"
 
 export const Ledger = () => {
 
-      // Start the fetch operation as soon as
-    // the page loads
-    window.addEventListener('load', () => {
-        Fetchdata();
-      });
- 
    
     const [searchparams] = useSearchParams();
-    console.log(searchparams.get("id"))
 
     let accountID = searchparams.get("id")
     const query = collection(db, "accounts")
-    const [docs, loading, error] = useCollectionData (query);
+    const [docs, loading] = useCollectionData (query);
+    const query2 = collection(db,  "journalEntries")
+    const [docs2, ] = useCollectionData (query2);
 
     const [name, setName] = useState("")
     const [number, setNumber] = useState(0)
@@ -60,6 +55,37 @@ export const Ledger = () => {
             setDebit(debit);
             setBalance(balance)
             setDescription(description);
+
+            let debitSum = 0;
+            let creditSum = 0;
+            let numSum = 0;
+    
+            const querySnapshot = await getDocs(collection(db, "journalEntries"));
+            
+                    querySnapshot.forEach((doc) => {
+                    //loop through the journal entries
+                    
+                    //sum up the debits and the credits from each journal entry
+                    var data = doc.data();
+                   if(data.debits[0].account === name)
+                   { console.log(data.debits[0].debit)
+                    debitSum += parseFloat(data.debits[0].debit)
+                    numSum++;
+                    }
+                    if(data.credits[0].account === name)
+                   { console.log(data.credits[0].credit)
+                    creditSum += parseFloat(data.credits[0].credit)
+                    numSum++;
+                    }
+
+                    
+                    });
+                
+            // the sum of the credits is subtracted from the sum of the credits and set as the new balance
+            setDebit(debitSum);
+            setCredit(creditSum);
+            setNetBalance(initialBalance+parseFloat(debitSum)-parseFloat(creditSum));
+            setjeNum(numSum)
            
         }
 
@@ -69,37 +95,6 @@ export const Ledger = () => {
 
   
 
-    // Fetch debits and credits from the journal entries
-    const Fetchdata = async ()=>{
-        let debitSum = 0;
-        let creditSum = 0;
-        let numSum = 0;
-
-        const querySnapshot = await getDocs(collection(db, "accounts", accountID, "journalEntries"));
-                querySnapshot.forEach((doc) => {
-                //loop through the journal entries
-                
-                //sum up the debits and the credits from each journal entry
-                var data = doc.data();
-                debitSum += parseFloat(data.debit);
-                creditSum += parseFloat(data.credit);
-                numSum++;
-                
-                console.log(creditSum)
-                console.log(debitSum)
-                console.log(numSum)
-                
-                });
-            
-         
-        // the sum of the credits is subtracted from the sum of the credits and set as the new balance
-        setDebit(debitSum);
-        setCredit(creditSum);
-        setNetBalance(parseFloat(debitSum)-parseFloat(creditSum));
-        setjeNum(numSum)
-        
-        
-    }
     
 
    
@@ -133,8 +128,8 @@ export const Ledger = () => {
                     <td>{number}</td>
                     <td>{name}</td>
                     <td>{category}</td>
-                    <td>{numberWithCommas(initialBalance)}</td>
-                    <td>{numberWithCommas(balance)}</td>
+                    <td>${numberWithCommas(initialBalance)}</td>
+                    <td>${numberWithCommas(NetBalance)}</td>
                     <td>{description}</td>
                 </tr>
             </tbody>
@@ -156,7 +151,7 @@ export const Ledger = () => {
             </thead>
             <tbody>
            
-            <ChildrenList path={`accounts/`} accountName={name}/>
+            <ChildrenList path={`accounts/`} accountName={name} />
                       
             </tbody>
         </Table>

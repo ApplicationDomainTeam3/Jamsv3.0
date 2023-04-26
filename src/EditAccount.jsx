@@ -151,8 +151,7 @@ export function EditAccount(account, seteditbox){
                             <th>Update</th>
                             <th>Category</th>
                             <th>Update</th>
-                            <th>Credit</th>
-                            <th>Update</th>
+                           
                             </tr>
                         </thead>
                         <tbody>
@@ -177,10 +176,7 @@ export function EditAccount(account, seteditbox){
                             <td><button className="custom-button" onClick={()=> { 
                                             editCategory(accountID, newCategory)
                                         }}><BiUpload size={25}/></button></td>
-                            <td>{numberWithCommas(credit)} <br></br> <input type="number" placeholder="edit credit" onChange={(event) => {setNewCredit(event.target.value)}}/></td>
-                            <td><button className="custom-button" onClick={()=> { 
-                                            editCredit(accountID, newCredit)
-                                        }}><BiUpload size={25}/></button></td>
+                           
                             </tr>
                         
                         </tbody>
@@ -188,10 +184,7 @@ export function EditAccount(account, seteditbox){
                     <Table responsive striped bordered hover>
                         <thead>
                             <tr>
-                            <th>Debit</th>
-                            <th>Update</th>
-                            <th>Initial Balance</th>
-                            <th>Update</th>
+    
                             <th>Description</th>
                             <th>Update</th>
                             </tr>
@@ -199,18 +192,6 @@ export function EditAccount(account, seteditbox){
                         <tbody>
                             
                             <tr>
-                            <td>{numberWithCommas(debit)} <br></br><input type="number" placeholder="edit debit" onChange={(event) => {setNewDebit(event.target.value)}}/><Link>
-                            </Link></td>
-                            <td>
-                            <button className="custom-button"  onClick={()=> { 
-                                            editDebit(accountID, newDebit)
-                                        }}><BiUpload size={25}/></button>
-                            </td>
-                            <td>{numberWithCommas(initialBalance)} <br></br><input type="text" placeholder="edit initial balance" onChange={(event) => {setNewIB(event.target.value)}}/></td>
-                            <td><button className="custom-button"  onClick={()=> { 
-                                            editIB(accountID, newIB)
-                                        }}><BiUpload size={25}/></button>
-                            </td>
                             <td>{description}<br></br><input className="input-large" type="text" placeholder="edit description" onChange={(event) => {setNewDescription(event.target.value)}}/></td>
                             <td><button className="custom-button" onClick={()=> { 
                                             editDescription(accountID, newDescription)
@@ -219,34 +200,7 @@ export function EditAccount(account, seteditbox){
                         
                         </tbody>
                     </Table>
-                    <button className="custom-button-calc" onClick={()=> { if(newBalance === NaN){
-
-                                                setNewBalance(balance)
-                                         
-                                                
-                                                alert("balance is "+balance+" new balance is "+newBalance)
-                                            }
-                                            else if(isNaN(newIB) || isNaN(newCredit) || isNaN(newDebit))
-                                            {
-                                                if(isNaN(newIB)){
-                                                    setNewIB(initialBalance)
-                                                }else 
-                                                if(isNaN(newCredit)){
-                                                    setNewCredit(credit)
-                                                }else
-                                                if(isNaN(newDebit)){
-                                                    setNewDebit(debit)
-                                                }
-                                              
-                                                editBalance(accountID, calcBalance(initialBalance, credit, debit))
-                                            alert("balance is "+calcBalance(initialBalance, credit, debit))
-                                            }
-                                            else{
-                                                editBalance(accountID, calcBalance(initialBalance, credit, debit))
-                                                alert("balance is "+calcBalance(initialBalance, credit, debit))
-                                            }
-                                            
-                                        }}>Calculate New Balance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BsCalculatorFill size={25}/></button>
+                   
                     
            
             

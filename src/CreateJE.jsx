@@ -34,7 +34,7 @@ export function CreateJE() {
 
 const ref2 = useRef();
 const [authUser, setAuthuser] = useState(null);
-
+const accountsCollectionRef = collection(db,  "accounts");
 const usersCollectionRef = collection(db, 'users');
 const [userUID, setuserUID] = useState("")
 const description = useRef();
@@ -51,6 +51,7 @@ const [username, setUsername] = useState("")
 const [role, setRole] = useState("")
 const [alert, setAlert] = useState(variants.at(0))
 const [showAlert, setShowAlert] = useState(false)
+const [accountNames, setAccountNames] = useState([])
 
 
 
@@ -59,6 +60,7 @@ const [showAlert, setShowAlert] = useState(false)
 useEffect(() => {
 
     const getCount =  async () => {
+        
         
         const coll = collection(db, "journalEntries");
         const snapshot = await getCountFromServer(coll);
@@ -74,8 +76,11 @@ useEffect(() => {
        
     }
     getCount();
-    
+   
+
 }, [refid]); 
+  
+    
 
   const close = () => ref2.current.close();
 
