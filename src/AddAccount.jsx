@@ -196,7 +196,7 @@ useEffect(() => {
             await addDoc(accountsCollectionRef, {name: newName, number: newNumber, category: newCategory, credit: creditSum, debit: debitSum, initialBalance: newIB, balance: balance, description: newDescription, dateTime: newDateTime, user: authUser.email})
 
       
-                if(debitInputs.at(0).debit > 0 && creditInputs.at(0).credit > 0){
+                if(debitInputs.at(0).debit > 0 || creditInputs.at(0).credit > 0){
                     const docRef=doc(db, "journalEntries", refid);
                     await setDoc(docRef, {account: newName, jeNumber: refid,  debits: debitInputs, credits: creditInputs, description:newDescription,  dateTime: newDateTime, approved: approved, pr: postReference, user: username, role: role});
                     setShowAlert(true)
@@ -335,7 +335,21 @@ const handleRemCred= (e, id) => {
             <form id="addaccount-form" className="addaccount-form" > 
             <div className="je-box-2">
                
-            <input type="text" placeholder="Account Name..."  onChange={(event) => {checkDupName(event.target.value)} }  />
+            <select className="je-select"  name="account"  onChange={event => checkDupName(event.target.value)}>
+                                            <option value="default">account...</option>
+                                            <option value="cash">cash</option>
+                                            <option value="accounts payable">accounts payable</option>
+                                            <option value="accounts receivable">accounts receivable</option>
+                                            <option value="salaries and benefits">salaries and benefits</option>
+                                            <option value="rent and overhead">rent and overhead</option>
+                                            <option value="inventory">inventory</option>
+                                            <option value="property and equipment">property and equipment</option>
+                                            <option value="equity capital">equity capital</option>
+                                            <option value="retained earnings">retained earnings</option>
+                                            <option value="net earnings">net earnings</option>
+                                            <option value="taxes">taxes</option>
+
+                </select>
 
                 <input type="number" placeholder="Number..."  onChange={(event) => {accntnumChk(event.target.value)}}  />
                 <select value={newCategory} onChange={(e) => setNewCategory(e.target.value)}>
