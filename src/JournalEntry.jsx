@@ -20,8 +20,8 @@ export const JournalEntry = ()=>{
     const [user, setUser] = useState('')
     const [postref, setpostRef] = useState('')
     const [account, setAccount] = useState('')
-    const [credit, setCredit] = useState(0)
-    const [debit, setDebit] = useState(0)
+    const [credits, setCredits] = useState([])
+    const [debits, setDebits] = useState([])
     const [description, setDescription] = useState("")
     const [jeNum, setjeNum] = useState(0);
     const [date, setDate] = useState("");
@@ -37,8 +37,9 @@ export const JournalEntry = ()=>{
             setDescription(data.description)
             setUser(data.user);
             setpostRef(data.pr)
-            setAccount(data.account)
-            setDebit(data.debit);
+            setAccount(data.debits[0].account)
+            setDebits(data.debits);
+            setCredits(data.credits);
             setjeNum(data.jeNumber)
             setDate(data.dateTime)
             setFiles(data.files)
@@ -66,7 +67,7 @@ return(
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Account</th>
+                                <th>Accounts</th>
                                 <th>Debit</th>
                                 <th>Credit</th>
                             </tr>
@@ -75,8 +76,15 @@ return(
                             <tr>
                             <td>{jeNum}</td>
                             <td>{account}</td>
-                            <td>{debit}</td>
-                            <td>{credit}</td>
+                            <td>
+                                {debits.map((doc)=>{
+                                    {console.log(doc.debit)}
+                                 
+                                })}
+                            </td>
+                            <td> {credits?.map((doc)=>{
+                                    <li>{doc.credit}</li>
+                                })}</td>
                             </tr>
                         </tbody>
                     </Table>

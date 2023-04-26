@@ -97,7 +97,7 @@ export function ChildrenList({path, accountName}){
                             }
                         </td>
                         <td>
-                            <button className="link-btn" onClick={()=>openJournal(path, doc.jeNumber)}>{doc.pr}</button>
+                            <button className="link-btn" onClick={()=>openJournal("journalEntries", doc.jeNumber)}>{doc.pr}</button>
                         </td>
                         </>
                     }
