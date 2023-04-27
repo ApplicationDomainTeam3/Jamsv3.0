@@ -7,6 +7,7 @@ import { Register } from './Register';
 import {Navbar} from './Navbar';
 import {Root} from './root';
 import  {EventLog } from './EventLog';
+import {FilterSearch} from './FilterSearch';
 import { Forgotpass } from './Forgotpass';
 import {AdminHome} from './AdminHome';
 import {ManagerHome} from './ManagerHome';
@@ -113,6 +114,11 @@ const router = createBrowserRouter([
   {
     path: "Home/Eventlog",
     element: <EventLog />
+  },
+  
+  {
+    path: "Home/FilterSearch",
+    element: <FilterSearch />
   },
   
     ]
