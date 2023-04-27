@@ -21,10 +21,11 @@ export const AppRejJE = () => {
 
     const [approval, setApproval] = useState("");
 
-    const approve = async (jeNumber, value) => {
-        const journaldoc = doc(db, "journalEntries", jeNumber)
-        const newFields = {approve: value, dateTime: newDateTime}
-        await updateDoc( journaldoc, newFields)
+    const approve = async (id, value) => {
+        {console.log("the value is: ", value)}
+        const journaldoc = doc(db, "journalEntries", id)
+        const newFields = {approved: value, dateTime: newDateTime}
+        await updateDoc(journaldoc, newFields)
         setAlert(5)
         setShowAlert(true)
        
@@ -61,7 +62,7 @@ export const AppRejJE = () => {
                     {doc.debits.map((debitdoc)=>
                         <>
                         <li>${numberWithCommas(debitdoc.debit)}</li>
-                        <li>{debitdoc.account}</li>
+                        <li>to{debitdoc.account}</li>
                         </>
                 )}
                     </td>
@@ -69,7 +70,7 @@ export const AppRejJE = () => {
                    {doc.credits.map((creditdoc)=>   
                     <>
                         <li>${numberWithCommas(creditdoc.credit)}</li>
-                        <li>{creditdoc.account}</li>
+                        <li>to {creditdoc.account}</li>
                     </>
                   )}  
                    </td>
@@ -78,7 +79,7 @@ export const AppRejJE = () => {
                     <td>{doc.dateTime}</td>
                     <td>{doc.pr}</td>
                     <td>{doc.approved}</td>
-                    {console.log("the docs number is: ", doc.jeNumber)}
+                    
                     <td> <select value={approval} onChange={(e) => approve(doc.jeNumber, e.target.value)}>
                             <option value="default">approve/reject</option>
                             <option value="approve">approve</option>
