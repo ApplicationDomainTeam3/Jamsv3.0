@@ -63,7 +63,13 @@ export  function FilterSearch() {
     }
   );
 
- 
+  if (loading || rejectedLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error || rejectedError) {
+    return <div>Error: {error || rejectedError}</div>;
+  }
 
   return (
     <div>
