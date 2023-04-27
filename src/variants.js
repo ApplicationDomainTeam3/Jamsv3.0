@@ -48,7 +48,7 @@ export const variants = [
       title: "Success",
       text: "Journal Entry Submitted for approval ",
     },
-    //Journal Entry Approved 7
+    //Journal Entry Approved 6
     {
       mainColor: "#EDFEEE",
       secondaryColor: "#5CB660",
