@@ -55,6 +55,15 @@ export const AdminHome = (props) => {
                 </div>
             </Link>
         </div>
+
+
+            <Link to="FilterSearch">
+                <div className = "card">
+                    <h3> FilterSearch</h3>
+                    <br></br>
+                    <ImEye size={50}/>
+                </div>
+            </Link>
         
         </div>
       
