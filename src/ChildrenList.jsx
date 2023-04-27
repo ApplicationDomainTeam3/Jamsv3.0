@@ -81,10 +81,13 @@ export function ChildrenList({path, accountName}){
        <>
                 
        {docs?.map((doc)=>(
+        
             <tr key={Math.random()}>
+                {doc.approved ===  `approved` &&
+                <>
                 {doc.debits.map((debitdoc)=>
                     <>
-                    {debitdoc.account === accountName &&
+                    {debitdoc.account === accountName && 
                         <>
                         <td>{doc.jeNumber}</td>
                         <td>{doc.user}</td>
@@ -129,6 +132,11 @@ export function ChildrenList({path, accountName}){
                      
                      
                   )}  
+                </>
+                
+                
+                }
+                
             </tr>
         ))}
        </>

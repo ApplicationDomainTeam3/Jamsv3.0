@@ -62,7 +62,7 @@ export const AppRejJE = () => {
                     {doc.debits.map((debitdoc)=>
                         <>
                         <li>${numberWithCommas(debitdoc.debit)}</li>
-                        <li>to{debitdoc.account}</li>
+                        <li>to {debitdoc.account}</li>
                         </>
                 )}
                     </td>
@@ -82,8 +82,8 @@ export const AppRejJE = () => {
                     
                     <td> <select value={approval} onChange={(e) => approve(doc.jeNumber, e.target.value)}>
                             <option value="default">approve/reject</option>
-                            <option value="approve">approve</option>
-                            <option value="reject">reject</option>
+                            <option value="approved">approve</option>
+                            <option value="rejected">reject</option>
                         </select>
                      </td>
                   
