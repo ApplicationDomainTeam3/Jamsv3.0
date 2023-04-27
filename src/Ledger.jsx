@@ -86,6 +86,9 @@ export const Ledger = () => {
             setCredit(creditSum);
             setNetBalance(initialBalance+parseFloat(debitSum)-parseFloat(creditSum));
             setjeNum(numSum)
+
+            const newFields = {balance: NetBalance}
+            await updateDoc( accountDoc, newFields)
            
         }
 
