@@ -7,7 +7,6 @@ import Table from 'react-bootstrap/Table';
 import menuLogo from './img/JAMS_1563X1563.png'
 import { BiUpload } from 'react-icons/bi';
 
-import { BsCalculatorFill } from 'react-icons/bs';
 
 
 
