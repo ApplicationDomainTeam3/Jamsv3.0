@@ -48,6 +48,22 @@ export const variants = [
       title: "Success",
       text: "Journal Entry Submitted for approval ",
     },
+    //Journal Entry Approved 7
+    {
+      mainColor: "#EDFEEE",
+      secondaryColor: "#5CB660",
+      symbol: "check_circle",
+      title: "Success",
+      text: "Journal Entry approved",
+    },
+    //Journal Entry Rejected 7
+    {
+      mainColor: "#EDFEEE",
+      secondaryColor: "#5CB660",
+      symbol: "check_circle",
+      title: "Success",
+      text: "Journal Entry rejected",
+    },
     //yellow
     {
       mainColor: "#FFF4E5",

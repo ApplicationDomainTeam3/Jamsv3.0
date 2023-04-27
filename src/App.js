@@ -26,6 +26,7 @@ import './bootstrap.css';
 import './App.css';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { CreateJE } from './CreateJE';
+import {AppRejJE} from './AppRejJE'
 
 
 
@@ -100,7 +101,10 @@ const router = createBrowserRouter([
     path: "home/viewusers",
     element: <ViewUsers />
   },
-
+  {
+    path: "home/apprejje",
+    element: <AppRejJE />
+  },
   {
     path: "adminhome/deactivateaccount",
     element: <DeactivateAccount />

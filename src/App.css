@@ -48,7 +48,7 @@
 .dash-container{
   display: table;
 }
-.view-accounts-container, .ledger-container, .edit-form-container {
+.view-accounts-container, .ledger-container, .edit-form-container, .approval-container {
   margin-top: 10rem;
   display: flex;
   flex-direction: column;

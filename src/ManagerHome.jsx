@@ -13,38 +13,43 @@ export const ManagerHome = (props) => {
 
     return (
         <>
+        <div className='dash-container'>
+            <div className="dashbox">
+                <Link to="addaccount">
+                    <div className = "card">
+                        <h3>Add<br></br> Account</h3>
+                        <br></br>
+                        <BiAddToQueue size={50}/>
+                    </div>
+                </Link>
+                <Link to="viewaccounts">
+                    <div className = "card">
+                        <h3>View<br></br> Accounts</h3>
+                        <br></br>
+                        <ImEye size={50}/>
+                    </div>
+                </Link>
+            </div> 
+            <div className="dashbox">
+                <Link to='apprejje'>
+                    <div className = "card">
+                        <h3>Approve/Reject<br></br>Journal Entries</h3>
+                        <br></br>
+                        <AiFillCheckCircle size={50}/>
+                    </div>
+                </Link>
+                <Link to="viewusers">
+                    <div className = "card">
+                        <h3>View</h3>
+                        
+                        <h3>Users</h3>
+                        <br></br>
+                        <AccountCircleIcon sx={{ fontSize: 50 }}/>
+                    </div>
+                </Link>
+            </div>
+        </div>
 
-            <Link to="addaccount">
-                <div className = "card">
-                    <h3>Add<br></br> Account</h3>
-                    <br></br>
-                    <BiAddToQueue size={50}/>
-                </div>
-            </Link>
-            <Link to="viewaccounts">
-                <div className = "card">
-                    <h3>View<br></br> Accounts</h3>
-                    <br></br>
-                    <ImEye size={50}/>
-                </div>
-            </Link>
-            <Link>
-                <div className = "card">
-                    <h3>Approve/Reject<br></br>Journal Entries</h3>
-                    <br></br>
-                    <AiFillCheckCircle size={50}/>
-                </div>
-            </Link>
-            <Link to="viewusers">
-                <div className = "card">
-                    <h3>View</h3>
-                    
-                    <h3>Users</h3>
-                    <br></br>
-                    <AccountCircleIcon sx={{ fontSize: 50 }}/>
-                </div>
-            </Link>
-         
         </>
         
         );
