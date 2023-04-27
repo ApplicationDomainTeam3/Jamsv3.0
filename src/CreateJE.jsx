@@ -233,6 +233,7 @@ function handleUpload(){
 }
 
 
+
 //when add button is clicked, new journal entry is created and the account balance is updated
     async function handleSubmit(e) {
         e.preventDefault();
