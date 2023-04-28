@@ -28,6 +28,7 @@ import './App.css';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { CreateJE } from './CreateJE';
 import {AppRejJE} from './AppRejJE'
+import { TrialBalance } from './TrialBalance';
 
 
 
@@ -105,6 +106,10 @@ const router = createBrowserRouter([
   {
     path: "home/apprejje",
     element: <AppRejJE />
+  },
+  {
+    path: "home/trialbalance",
+    element: <TrialBalance />
   },
   {
     path: "adminhome/deactivateaccount",

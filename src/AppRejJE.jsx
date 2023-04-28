@@ -26,7 +26,10 @@ export const AppRejJE = () => {
         const journaldoc = doc(db, "journalEntries", id)
         const newFields = {approved: value, dateTime: newDateTime}
         await updateDoc(journaldoc, newFields)
-        setAlert(5)
+        if(value === "approved")
+        setAlert(variants.at(6))
+        else
+        setAlert(variants.at(7))
         setShowAlert(true)
        
     }

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { BiAddToQueue} from 'react-icons/bi';
 import {AiFillCheckCircle} from  'react-icons/ai'
+import {TrialBalance} from './TrialBalance'
 
 
 
@@ -43,6 +44,15 @@ export const ManagerHome = (props) => {
                         <h3>View</h3>
                         
                         <h3>Users</h3>
+                        <br></br>
+                        <AccountCircleIcon sx={{ fontSize: 50 }}/>
+                    </div>
+                </Link>
+                <Link to="trialbalance">
+                    <div className = "card">
+                        <h3>Trial</h3>
+                        
+                        <h3>Balance</h3>
                         <br></br>
                         <AccountCircleIcon sx={{ fontSize: 50 }}/>
                     </div>

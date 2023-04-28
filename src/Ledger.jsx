@@ -47,7 +47,8 @@ export const Ledger = () => {
             const debit = data.debit;
             const balance = data.balance;
             const description = data.description;
-            setInitialBalance(data.initialBalance)
+            const initialBalance = data.initialBalance
+            setInitialBalance(initialBalance)
             setName(name);
             setNumber(number);
             setCategory(category);
@@ -58,6 +59,7 @@ export const Ledger = () => {
 
             let debitSum = 0;
             let creditSum = 0;
+           
             let numSum = 0;
     
             const querySnapshot = await getDocs(collection(db, "journalEntries"));
@@ -86,8 +88,8 @@ export const Ledger = () => {
             setCredit(creditSum);
             setNetBalance(initialBalance+parseFloat(debitSum)-parseFloat(creditSum));
             setjeNum(numSum)
-
-            const newFields = {balance: NetBalance}
+            const newBalance = initialBalance+parseFloat(debitSum)-parseFloat(creditSum);
+            const newFields = {balance: newBalance}
             await updateDoc( accountDoc, newFields)
            
         }

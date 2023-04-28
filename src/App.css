@@ -48,7 +48,7 @@
 .dash-container{
   display: table;
 }
-.view-accounts-container, .ledger-container, .edit-form-container, .approval-container {
+.view-accounts-container, .ledger-container, .edit-form-container, .approval-container, .trial-balance-container {
   margin-top: 10rem;
   display: flex;
   flex-direction: column;
@@ -56,7 +56,17 @@
 .home-container{
   margin-top: 10rem;
 }
+.trial-balance-container{
+  width: 80rem;
+  padding: 2rem;
+  background: #A16AE8;
+  border-radius: 10px;
+  margin-top:10rem;
+  
+  color: white;
+  box-shadow: 3px 5px 5px grey;
 
+}
 .view-accounts-container{
   display: block;
   height: 50rem;

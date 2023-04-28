@@ -18,7 +18,7 @@ export const Alert = ({ variant }) => {
       >
         <div
           className="symbol-container"
-          style={{ background: variant.secondaryColor }}
+          style={{ background: variant.secondaryColor, color: variant.mainColor }}
         >
           <span class="material-symbols-outlined symbol"><AiOutlineExclamationCircle /></span>{" "}
         </div>

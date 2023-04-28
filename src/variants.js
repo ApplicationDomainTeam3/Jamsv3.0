@@ -58,13 +58,13 @@ export const variants = [
     },
     //Journal Entry Rejected 7
     {
-      mainColor: "#EDFEEE",
-      secondaryColor: "#5CB660",
+      mainColor: "#FFF4E5",
+      secondaryColor: "#FFA117",
       symbol: "check_circle",
       title: "Success",
       text: "Journal Entry rejected",
     },
-    //yellow
+    //yellow 8
     {
       mainColor: "#FFF4E5",
       secondaryColor: "#FFA117",
@@ -72,7 +72,7 @@ export const variants = [
       title: "Warning",
       text: "Your trial is ending soon, please click here to renew it.",
     },
-    //pink
+    //pink 9
     {
       mainColor: "#FFC0CB",
       secondaryColor: "#FF69B4",
@@ -80,5 +80,14 @@ export const variants = [
       title: "Check it out",
       text: "Fun and cute pictures of dogs are to be released daily from now on!",
     },
+
+      //Debits and Credit Accounts not Balanced 10
+      {
+        mainColor: "#FDEDED",
+        secondaryColor: "#F16360",
+        symbol: "error",
+        title: "Error",
+        text: "Accounts not balanced! Assets must equal Liabilities + Equity!",
+      },
   ];
   
