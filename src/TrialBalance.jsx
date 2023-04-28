@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {db} from './firestore';
-import { collection, getDocs, getDoc, deleteDoc, doc, updateDoc } from "firebase/firestore"
+import { collection, getDocs, getDoc, deleteDoc, doc, setDoc, updateDoc, getCountFromServer } from "firebase/firestore"
 import { IoIosCreate } from 'react-icons/io';
 import {Link, createSearchParams, useNavigate} from "react-router-dom"
 import { ImWarning } from 'react-icons/im';
@@ -32,6 +32,9 @@ export const TrialBalance = () =>{
     const auth = getAuth();   
     const [alert, setAlert] = useState(variants.at(0))
     const [showAlert, setShowAlert] = useState(false) 
+    const [newDateTime, setNewDateTime] = useState(Date)
+    const [refid, setrefid] = useState("")
+
     
 //////////////////Get user data///////////////////////////////////
     useEffect(() => {
@@ -67,7 +70,24 @@ export const TrialBalance = () =>{
         }
 
     }, [authUser, userUID, role]);
+/////////////////generate journal entry number and post reference////////////////////////
+useEffect(() => {
 
+    const getCount =  async () => {
+        
+        
+        const coll = collection(db, "journalEntries");
+        const snapshot = await getCountFromServer(coll);
+        console.log(snapshot.data());
+        
+        console.log(snapshot.data().count);
+        setrefid(snapshot.data().count.toString());
+        console.log("the new ref id is ", refid)
+    }
+    getCount();
+   
+
+}, [refid]); 
 
 
     
@@ -88,11 +108,11 @@ export const TrialBalance = () =>{
     useEffect(() => {
 
      
-        const getTrialBalance =  async () => {
+        const getTrialBalance =  async (refid) => {
      
             let debitSum = 0;
             let creditSum = 0;
-           
+            let notification = "The accounts are not balanced! Assets must equal Liabilies + Equity!"
 
     
             const querySnapshot = await getDocs(collection(db, "accounts"));
@@ -123,11 +143,14 @@ export const TrialBalance = () =>{
             {
                 setAlert(variants.at(10));
                 setShowAlert(true)
+                const mnotifRef=doc(db, "mnotifications", refid);
+                await setDoc(mnotifRef, {notification: notification, dateTime: newDateTime})
+                
             }
            
         }
 
-        getTrialBalance();
+        getTrialBalance(refid);
         
     }, []); 
 

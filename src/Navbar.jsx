@@ -7,14 +7,25 @@ import { query, where } from "firebase/firestore";
 import { getDocs } from "firebase/firestore";
 import { usersCollectionRef } from './firebase';
 import { useNavigate } from "react-router-dom";
+import { AiFillBell } from 'react-icons/ai'
+import {VscBellDot} from 'react-icons/vsc'
+import {db} from './firestore';
+import { collection} from "firebase/firestore"
 
 import "./NavbarStyles.css"
+import { red } from "@mui/material/colors";
+import { onSnapshot } from "firebase/firestore";
+
+
 
 
 //Main navigation menu
 export function Navbar(){
     const [click, setClick] = useState(false)
     const handleClock = () => setClick(!click)
+    const notificationsCollectionRef = collection(db, "mnotifications")
+    const [notifications, setNotifications] = useState([])
+    const [haveNotifs, sethaveNotifs] = useState(false)
     
     const [authUser, setAuthuser] = useState(null);
     const [role, setRole] = useState("")
@@ -50,16 +61,25 @@ export function Navbar(){
 
             }else{
                 setAuthuser(null);//otherwise authuser is null
-                
-            }
-            
+            } 
         });
-
         return () => {
             listen();
         }
 
     }, [authUser, userUID, role]);
+    useEffect(() => {
+
+        const getNotifications = async () => {
+            const data = await getDocs(notificationsCollectionRef);
+            setNotifications(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+        };
+
+        getNotifications();
+    }, []);
+
+  
+
 
     return (
         <nav>
@@ -77,6 +97,21 @@ export function Navbar(){
                 
                 <li><Link to="home/createje">Journal Entry</Link></li>
                 <li className="authdetails">< AuthDetails/></li>  {/*sign in info displayed in */}
+                {notifications.length > 0 &&
+                <>
+                {console.log(notifications.length)}
+                    <Link to="home/notifications">
+                    <button className="custom-button3"><VscBellDot color={red} size={30}/></button>
+                    </Link>
+                </>
+                }
+                {notifications.length === 0 &&
+                <>
+                    <Link to="home/notifications">
+                       <button className="custom-button2"><AiFillBell  size={30}/></button> 
+                    </Link>
+                </>
+                }
             </ul>
         </div>: <></>}
         

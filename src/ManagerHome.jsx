@@ -7,7 +7,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { BiAddToQueue} from 'react-icons/bi';
 import {AiFillCheckCircle} from  'react-icons/ai'
 import {TrialBalance} from './TrialBalance'
-
+import {FaBalanceScaleLeft} from 'react-icons/fa'
 
 
 export const ManagerHome = (props) => {
@@ -54,7 +54,7 @@ export const ManagerHome = (props) => {
                         
                         <h3>Balance</h3>
                         <br></br>
-                        <AccountCircleIcon sx={{ fontSize: 50 }}/>
+                        <FaBalanceScaleLeft size={50}/>
                     </div>
                 </Link>
             </div>

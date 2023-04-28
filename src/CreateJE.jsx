@@ -233,18 +233,22 @@ function handleUpload(){
 }
 
 
-
 //when add button is clicked, new journal entry is created and the account balance is updated
     async function handleSubmit(e) {
         e.preventDefault();
+
 
         if(checkEqual(debitInputs, creditInputs))
         {
 
             if(debitInputs.at(0).debit > 0 && creditInputs.at(0).credit > 0){
+
+                let notification = "A new journal entry was submitted for approval by "+username
                 setShowAlert(false)
                 const docRef=doc(db, "journalEntries", refid);
                 await setDoc(docRef, {jeNumber: refid,  debits: debitInputs, credits: creditInputs, description: description.current.value, files: attachedFile, dateTime: newDateTime, approved: approved, pr: postReference, user: username, role: role});
+                const mnotifRef=doc(db, "mnotifications", refid);
+                await setDoc(mnotifRef, {notification: notification, dateTime: newDateTime, postReference: postReference})
                 if(file)
                     {handleUpload();}
                 setAlert(variants.at(5))

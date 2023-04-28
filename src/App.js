@@ -29,6 +29,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { CreateJE } from './CreateJE';
 import {AppRejJE} from './AppRejJE'
 import { TrialBalance } from './TrialBalance';
+import { Notifications } from './Notifications';
 
 
 
@@ -110,6 +111,10 @@ const router = createBrowserRouter([
   {
     path: "home/trialbalance",
     element: <TrialBalance />
+  },
+  {
+    path: "home/notifications",
+    element: <Notifications />
   },
   {
     path: "adminhome/deactivateaccount",

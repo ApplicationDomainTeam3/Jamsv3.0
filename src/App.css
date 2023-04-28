@@ -53,6 +53,17 @@
   display: flex;
   flex-direction: column;
 }
+.notifications-container{
+  width: 80rem;
+  height: 50rem;
+  padding: 2rem;
+  background: #A16AE8;
+  border-radius: 10px;
+  margin-top:10rem;
+  
+  color: white;
+  box-shadow: 3px 5px 5px grey;
+}
 .home-container{
   margin-top: 10rem;
 }
@@ -125,6 +136,24 @@
   margin-top: 2rem;
   color:#b4fee7;
   box-shadow: 3px 3px 3px grey;
+}
+.custom-button2 {
+  
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: .5rem;
+  background: none;
+  margin-top: 2rem;
+  color:#b4fee7;
+}
+.custom-button3 {
+  
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: .5rem;
+  background: none;
+  margin-top: 2rem;
+  color:#fd49a0;
 }
 
 .custom-button-je {

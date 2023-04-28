@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { Alert } from "./Alert"
-import { variants } from "./variants"
+import { variants } from "./variants";
 import menuLogo from './img/JAMS_1563X1563.png'
 
 
@@ -136,23 +136,24 @@ useEffect(() => {
             setAlert(variants.at(1))
             setShowAlert(true)
             console.log("dupcheck returning true")
-
            setDupNum(true)
 
         }
        
 
     }
-    const navigate = useNavigate();
     const numCheck = new RegExp(/^\+?(0*[1-9]\d*(?:[\., ]\d+)*) *(?:\p{Sc}|°[FC])?$/mg) //regular expression for checking if input is a positive integer
-
 
     //check that account number is a positive integer
     const accntnumChk =  (e) => {
         
-       
-        if (numCheck.test(e)) 
+       if(e.length !== 4){
+        setAlert(variants.at(2))
+        setShowAlert(true);
+       }
+        else if (numCheck.test(e)) 
             {
+                setShowAlert(false);
                 checkDupNumber(e)
             }
             
