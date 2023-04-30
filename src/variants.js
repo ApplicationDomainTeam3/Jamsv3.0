@@ -89,5 +89,13 @@ export const variants = [
         title: "Error",
         text: "Accounts not balanced! Assets must equal Liabilities + Equity!",
       },
+      //Please enter reason for rejection 11
+      {
+        mainColor: "#FDEDED",
+        secondaryColor: "#F16360",
+        symbol: "error",
+        title: "Error",
+        text: "Please enter reason for rejection",
+      },
   ];
   

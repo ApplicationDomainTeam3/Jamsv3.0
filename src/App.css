@@ -39,19 +39,52 @@
   flex-direction: row;
   
 }
-
+h1{
+  margin-bottom: 0;
+  margin-top: 0;
+}
 .dashbox{
-  
   display: flex;
   flex-direction: row;
 }
 .dash-container{
   display: table;
 }
-.view-accounts-container, .ledger-container, .edit-form-container, .approval-container, .trial-balance-container {
+.column-container{
+  display: column;
+  width: 100rem;
+  padding: 2rem;
+  background: #A16AE8;
+  border-radius: 10px;
+}
+.column-container-invis{
+  margin-top:10rem;
+  display: flex;
+  flex-direction: column;
+}
+.select-report{
+  width: 20rem;
+}
+.view-accounts-container, .ledger-container, .edit-form-container, .approval-container  {
   margin-top: 10rem;
   display: flex;
   flex-direction: column;
+}
+.trial-balance-container{
+ 
+  display: column;
+}
+.balance-sheet-container{
+  display: flex;
+  flex-direction: row;
+  
+}
+.bs-table-container{
+  display: flex;
+  flex-direction: column;
+  width: 40rem;
+  margin-left: 5rem;
+
 }
 .notifications-container{
   width: 80rem;
@@ -71,9 +104,7 @@
   width: 80rem;
   padding: 2rem;
   background: #A16AE8;
-  border-radius: 10px;
-  margin-top:10rem;
-  
+  border-radius: 10px;  
   color: white;
   box-shadow: 3px 5px 5px grey;
 
@@ -118,7 +149,8 @@
 }
 .card {
   padding: 5rem;
- 
+  width: 20rem;
+  height: 25rem;
   background: #A16AE8;
   border-radius: 10px;
   margin: 0.5rem;
@@ -134,6 +166,20 @@
   background: #603f8b;
   border-radius: 3px;
   margin-top: 2rem;
+  margin-bottom: 1rem;
+  color:#b4fee7;
+  box-shadow: 3px 3px 3px grey;
+}
+.custom-button-tb {
+  
+  font-size: 1.3rem;
+  font-weight: 600;
+  width:20rem;
+  padding: .5rem;
+  background: #603f8b;
+  border-radius: 3px;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
   color:#b4fee7;
   box-shadow: 3px 3px 3px grey;
 }
@@ -143,7 +189,6 @@
   font-weight: 600;
   padding: .5rem;
   background: none;
-  margin-top: 2rem;
   color:#b4fee7;
 }
 .custom-button3 {
@@ -188,13 +233,12 @@
   box-shadow: 3px 3px 3px grey;
 }
 .custom-button-va {
+  font-size: 1.3rem;
+  font-weight: 600;
   padding: .5rem;
+  background: none;
 
-  background: #603f8b;
-  border-radius: 3px;
-  margin: 0.5rem;
-  color: #b4fee7;
-  box-shadow: 3px 3px 3px grey;
+  color:#b4fee7;
 }
 
 .debit-form{

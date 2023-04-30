@@ -12,8 +12,10 @@ export const AccountantHome = (props) => {
 
     return (
         <>
-        <div className ="ledger-container">
-        <h1>Accountant Dashboard</h1>
+         <div className='dash-container'>
+         <h1>Accountant Dashboard</h1>
+            <div className="dashbox">
+        
             <Link to="viewaccounts">
                 <div className = "card">
                     <h3>View<br></br> Accounts</h3>
@@ -21,6 +23,21 @@ export const AccountantHome = (props) => {
                     <ImEye size={50}/>
                 </div>
             </Link>
+            <Link to="viewje">
+                <div className = "card">
+                    <h3>View<br></br>Journal Entries</h3>
+                    <br></br>
+                    <ImEye size={50}/>
+                </div>
+            </Link>
+            <Link to="createje">
+                <div className = "card">
+                    <h3>Create<br></br>Journal Entries</h3>
+                    <br></br>
+                    < IoIosCreate size={50}/>
+                </div>
+            </Link>
+        </div>
         </div>
           
          

@@ -1,10 +1,14 @@
 import { useSearchParams, } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {db} from './firestore';
-import {doc, getDoc} from "firebase/firestore"
+import {doc, getDoc, updateDoc} from "firebase/firestore"
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Table } from "react-bootstrap";
 import { AiFillFileText } from 'react-icons/ai';
+import {AiOutlineSend} from 'react-icons/ai'
+import { Alert } from "./Alert"
+import { variants } from "./variants"
+
 
 
 export const JournalEntry = ()=>{
@@ -26,6 +30,11 @@ export const JournalEntry = ()=>{
     const [jeNum, setjeNum] = useState(0);
     const [date, setDate] = useState("");
     const [files, setFiles] = useState("");
+    const [alert, setAlert] = useState(variants.at(0))
+    const [showAlert, setShowAlert] = useState(false)
+    const [newDateTime, setNewDateTime] = useState(Date)
+
+
 
     useEffect(() => {
 
@@ -52,17 +61,61 @@ export const JournalEntry = ()=>{
         getAccount(id, path);
         
     }, []); 
+  
 
     const openInNewTab = (url) => {
         console.log(url);
         window.open(url);
       };
+      const comment= useRef()
+      const [showComment, setshowComment] = useState(false)
+  
+      const [approval, setApproval] = useState("");
+  
+      const approve = async (id, value) => {
+          {console.log("the value is: ", value)}
+          const journaldoc = doc(db, "journalEntries", id)
+          if(value === "approved")
+          {
+              
+              setAlert(variants.at(6))
+              const newFields = {approved: value, dateTime: newDateTime}
+              await updateDoc(journaldoc, newFields)
+          }
+         
+          else
+          {
+              setApproval(value)
+              setAlert(variants.at(11))
+              setShowAlert(true)
+              setshowComment(true)
+          }
+      }
+      const submitRej = async (id, approval) => {
+          
+          if(comment.current.value==="")
+          {
+              setAlert(variants.at(11))
+          }
+          else{
+              console.log("the comment is: ", comment.current.value)
+          const journaldoc = doc(db, "journalEntries", id)
+          const newFields = {approved: approval, dateTime: newDateTime, comment:comment.current.value}
+          await updateDoc(journaldoc, newFields)
+          setAlert(variants.at(7))
+          }
+  
+      }
 
 return(
     <div>
                             <>
                     
                     <h1>Journal Entry</h1>
+                    {showAlert === true &&
+           
+                        <Alert variant={alert} />
+                        }
                     <Table responsive striped bordered >
                         <thead>
                             <tr>
@@ -96,6 +149,7 @@ return(
                                 <th>Created</th>
                                 <th>Post Reference</th>
                                 <th>Attachments</th>
+                                <th>Approve/Reject</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -103,11 +157,26 @@ return(
                             <td>{description}</td>
                             <td>{user}</td>
                             <td>{date}</td>
-                            <td>{postref}</td>
+                            <td>
+                            {postref}
+                        </td>
                             <td>{files.length > 0 &&
                                     <button role="link" className="custom-button-je" onClick={() => openInNewTab(files)}><AiFillFileText size={25}/></button>
                                     }
                             </td>
+                            <td> <select value={approval} onChange={(e) => approve(jeNum, e.target.value)}>
+                                <option value="default">approve/reject</option>
+                                <option value="approved">approve</option>
+                                <option value="rejected">reject</option>
+                            </select>
+                        {showComment && 
+                                
+                                <>
+                                <input className="input-large" placeholder="enter reason for rejection..." ref={comment} />
+                                <button className='custom-button2'onClick={()=> submitRej(jeNum, approval)}><AiOutlineSend size={20}/></button>
+                                </>
+                                }
+                     </td>
                             </tr>
                         </tbody>
                     </Table>

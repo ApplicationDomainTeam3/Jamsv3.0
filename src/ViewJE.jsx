@@ -1,39 +1,18 @@
 import React, {useState, useRef} from 'react'
+import { doc, updateDoc, getDoc } from "firebase/firestore";
 import {db} from './firestore';
-import { async } from "@firebase/util";
-import { useSearchParams, Link } from "react-router-dom";
 import Table from 'react-bootstrap/Table';
 import menuLogo from './img/JAMS_1563X1563.png'
-import { BsHandThumbsUpFill } from 'react-icons/bs';
-import { Alert } from "./Alert"
 import { variants } from "./variants"
 import { collection } from "firebase/firestore";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { createSearchParams, useNavigate} from "react-router-dom"
 
-
-export const AppRejJE = () => {
+export const ViewJE = () => {
 
     const journalEntriesref = collection(db,  "journalEntries");
-    const [docs, loading, error] = useCollectionData (journalEntriesref);
-    const [alert, setAlert] = useState(variants.at(0))
-    const [showAlert, setShowAlert] = useState(false)
-    const navigate = useNavigate();
+    const [docs] = useCollectionData (journalEntriesref);
 
-
-       ////////////////////////Open journal entry by clicking Post reference////////////////////
-
-       const openJournal = (path, id) => {
-        navigate({
-            pathname: "journalentry",
-            search: createSearchParams({
-                path: path,
-                id: id
-            }).toString()
-           
-        })
-    };
-  
+ 
        //function for displaying cash amounts with commas where appropriate. Math.round...tofixed(2) makes it display two decimal points
        function numberWithCommas(x) {
 
@@ -42,9 +21,8 @@ export const AppRejJE = () => {
     return(
         <>
         <div className='approval-container'>
-            <h2>Approve/Reject Journal Entries</h2>
-            <h3>Click post reference to approve/reject journal entry</h3>
-           
+            <h2>Journal Entries</h2>
+         
         <Table responsive striped bordered hover>
             <thead>
                 <tr>
@@ -56,10 +34,12 @@ export const AppRejJE = () => {
                     <th>Date</th>
                     <th>Post Reference</th>
                     <th>Approval<br/>Status</th>
+                    <th>Comment</th>
+
                 </tr>
             </thead>
             <tbody>
-            {docs?.map((doc, idx)=>(
+            {docs?.map((doc)=>(
                 <tr key={Math.random()}>
                     <td>{doc.jeNumber}</td>
                     <td>{doc.user}</td>
@@ -82,19 +62,13 @@ export const AppRejJE = () => {
                  
                     <td>{doc.description}</td>
                     <td>{doc.dateTime}</td>
-                    <td>
-                        <button className="link-btn" onClick={()=>openJournal("journalEntries", doc.jeNumber)}>{doc.pr}</button>
-                    </td>
+                    <td>{doc.pr}</td>
                     <td>{doc.approved}</td>
-                    
-                    
+                    <td>{doc.comment}</td>
                     
                   
                 </tr>
-            
-               
             ))}
-           
             </tbody>
         </Table>
        

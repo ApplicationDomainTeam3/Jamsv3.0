@@ -30,6 +30,9 @@ import { CreateJE } from './CreateJE';
 import {AppRejJE} from './AppRejJE'
 import { TrialBalance } from './TrialBalance';
 import { Notifications } from './Notifications';
+import { ViewJE } from './ViewJE';
+import { BalanceSheet } from './BalanceSheet';
+import { FinancialReport } from './FinancialReport';
 
 
 
@@ -81,6 +84,10 @@ const router = createBrowserRouter([
     element: <CreateJE/>
   },
   {
+    path:"home/viewje",
+    element: <ViewJE/>
+  },
+  {
     path: "home/AdminCreateUser",
     element: <AdminCreateUser/>
   },
@@ -109,9 +116,14 @@ const router = createBrowserRouter([
     element: <AppRejJE />
   },
   {
-    path: "home/trialbalance",
-    element: <TrialBalance />
+    path: "home/apprejje/journalentry",
+    element: <JournalEntry />
   },
+  {
+    path: "home/financialreport",
+    element: <FinancialReport />
+  },
+
   {
     path: "home/notifications",
     element: <Notifications />

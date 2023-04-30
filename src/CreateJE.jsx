@@ -378,7 +378,7 @@ function handleUpload(){
            <Popup ref={ref2} trigger={open => (   <button type="button" className="custom-button" >Post Journal Entry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BiUpload size={25}/></button>  )} position='center center'  arrow={false} modal closeOnDocumentClick>
             <h4>Post Journal Entry?</h4>
                 <button form="je-form" className="custom-button" type="submit" >Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button onClick={()=>close()} className="custom-button">Cancel</button>
-            </Popup>;
+            </Popup>
 
             {showAlert === true &&
            

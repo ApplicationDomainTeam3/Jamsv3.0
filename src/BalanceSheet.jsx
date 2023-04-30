@@ -17,7 +17,7 @@ import Table from 'react-bootstrap/Table';
 import menuLogo from './img/JAMS_1563X1563.png'
 
 
-export const TrialBalance = () =>{
+export const BalanceSheet = () =>{
    
     const [accounts, setAccounts] = useState([]);
     const accountsCollectionRef = collection(db,  "accounts");
@@ -101,7 +101,7 @@ useEffect(() => {
 
     useEffect(() => {
 
-        const getTrialBalance =  async (refid) => {
+        const getBalanceSheet =  async (refid) => {
      
             let debitSum = 0;
             let creditSum = 0;
@@ -143,7 +143,7 @@ useEffect(() => {
            
         }
 
-        getTrialBalance(refid);
+        getBalanceSheet(refid);
         
     }, []); 
 
@@ -168,67 +168,121 @@ useEffect(() => {
    
 
     return(
-        <>
-                    <div id="domEl" ref={domEl} className="trial-balance-container">
-                    <h1>Trial Balance</h1>
-                    <button className="custom-button-tb" onClick={downloadReport}>Download Trial Balance</button>
-                    <Table responsive striped bordered >
+       
+                <div > 
+                    <div className="column-container">
+                    <h1>Balance Sheet</h1>
+                    <button className="custom-button-tb" onClick={downloadReport}>Download Balance Sheet</button>
+                    {showAlert === true &&
+           
+                        <Alert variant={alert} />
+                    }
+                    <div id="domEl" ref={domEl} className="balance-sheet-container">
+                        
+                    <div className="bs-table-container">
+                    <Table responsive striped bordered>
 
                         <thead>
                             <tr>
-                            <th>Accounts</th>
-                            <th>Debit</th>
-                            <th>Credit</th>
+                            <th>Current Assets</th>
+                            <th>Amount</th>
                             </tr>
                         </thead>
                        
                         <tbody >
                             {accounts && accounts.map((account) => (
                             <tr key={account.id}>
-                            <td>{account.name}</td>
+                           
                             {account.category === "asset" &&
                             <>
+                                <td>{account.name}</td>
                                  <td>${numberWithCommas(account.balance)}</td>
-                                 <td></td>
                             </>
                             }
-                            {account.category === "liability"  &&
+
+                            </tr>
+                            ))}   
+                        </tbody>
+                        
+                    </Table>
+                    <Table responsive striped bordered>
+                        <tbody>
+                            <tr>
+                            <td>Total: </td>
+                              
+                              <td>${numberWithCommas(debits)}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    </div>
+                    <div className="bs-table-container">
+
+                    <Table responsive striped bordered>
+                        <thead>
+                            <tr>
+                                <th>Current Liabilities</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {accounts && accounts.map((account) => (
                             <>
-                                <td></td>
+                            <tr>
+                            {account.category === "liability"  &&
+                           <>
+                                <td>{account.name}</td>
                                  <td>${numberWithCommas(account.balance)}</td>
-                            </>
-                            
+                                 </>
                             || account.category === "expense"  &&
                             <>
-                                <td></td>
+                                <td>{account.name}</td>
                                  <td>${numberWithCommas(account.balance)}</td>
-                            </>|| account.category === "equity" &&
+                            </>
+                            }
+                         
+                            </tr>
+                            </>
+                             ))}
+                        </tbody>
+                    </Table>
+                    <Table responsive striped bordered>
+                        <thead>
+                            <tr>
+                                <th>Equity</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {accounts && accounts.map((account) => (
                             <>
-                                <td></td>
+                            <tr>
+                            {account.category === "equity" &&
+                            <>
+                                <td>{account.name}</td>
                                  <td>${numberWithCommas(account.balance)}</td>
                             </>
 
                             }
-                           
+                         
                             </tr>
-                            ))}
+                            </>
+                             ))}
+                        </tbody>
+                    </Table>
+                    <Table responsive striped bordered>
+                        <tbody>
                             <tr>
-                                <td>Total: </td>
-                                <td>${numberWithCommas(debits)}</td>
-                                <td>${numberWithCommas(credits)}</td>
+                            <td>Total: </td>
+                              
+                              <td>${numberWithCommas(credits)}</td>
                             </tr>
                         </tbody>
-                        
                     </Table>
-                    
-                    
-                    {showAlert === true &&
-           
-           <Alert variant={alert} />
-               }
+                    </div>
                    </div>
                   
- 
-        </>
+               </div>
+        </div>
+      
     )
 }

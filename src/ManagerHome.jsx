@@ -48,11 +48,10 @@ export const ManagerHome = (props) => {
                         <AccountCircleIcon sx={{ fontSize: 50 }}/>
                     </div>
                 </Link>
-                <Link to="trialbalance">
+                <Link to="financialreport">
                     <div className = "card">
-                        <h3>Trial</h3>
-                        
-                        <h3>Balance</h3>
+                        <h3>Financial</h3>
+                        <h3>Report</h3>
                         <br></br>
                         <FaBalanceScaleLeft size={50}/>
                     </div>

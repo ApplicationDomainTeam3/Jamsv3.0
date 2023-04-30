@@ -97,6 +97,9 @@ export function Navbar(){
                 
                 <li><Link to="home/createje">Journal Entry</Link></li>
                 <li className="authdetails">< AuthDetails/></li>  {/*sign in info displayed in */}
+
+                {role === "manager" &&
+                <>
                 {notifications.length > 0 &&
                 <>
                 {console.log(notifications.length)}
@@ -112,6 +115,8 @@ export function Navbar(){
                     </Link>
                 </>
                 }
+                </>
+            }
             </ul>
         </div>: <></>}
         
