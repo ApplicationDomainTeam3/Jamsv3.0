@@ -171,6 +171,10 @@ useEffect(() => {
         <>
                     <div id="domEl" ref={domEl} className="trial-balance-container">
                     <h1>Trial Balance</h1>
+                    {showAlert === true &&
+           
+           <Alert variant={alert} />
+               }
                     <button className="custom-button-tb" onClick={downloadReport}>Download Trial Balance</button>
                     <Table responsive striped bordered >
 
@@ -222,10 +226,7 @@ useEffect(() => {
                     </Table>
                     
                     
-                    {showAlert === true &&
-           
-           <Alert variant={alert} />
-               }
+        
                    </div>
                   
  
