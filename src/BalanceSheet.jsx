@@ -160,7 +160,7 @@ useEffect(() => {
         const dataUrl = await htmlToImage.toPng(domEl.current);
 
        const link = document.createElement('a');
-       link.download = "trial-balance.png";
+       link.download = "balance-sheet.png";
        link.href = dataUrl;
        link.click();
     }

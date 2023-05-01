@@ -8,6 +8,8 @@ import { AiFillFileText } from 'react-icons/ai';
 import {AiOutlineSend} from 'react-icons/ai'
 import { Alert } from "./Alert"
 import { variants } from "./variants"
+import { collection, query, where, getDocs } from "firebase/firestore";
+
 
 
 
@@ -24,6 +26,8 @@ export const JournalEntry = ()=>{
     const [user, setUser] = useState('')
     const [postref, setpostRef] = useState('')
     const [account, setAccount] = useState('')
+    const [creditaccounts, setcreditAccounts] = useState([])
+    const [debitaccounts, setdebitAccounts] = useState([])
     const [credits, setCredits] = useState([])
     const [debits, setDebits] = useState([])
     const [description, setDescription] = useState("")
@@ -33,20 +37,56 @@ export const JournalEntry = ()=>{
     const [alert, setAlert] = useState(variants.at(0))
     const [showAlert, setShowAlert] = useState(false)
     const [newDateTime, setNewDateTime] = useState(Date)
+    const [newBalance, setNewBalance] = useState(0);
 
-
+      ////////////Print Debits//////////////
+      const printDebits = (array) => {
+    
+   
+        const listItems = array.map((d) => <li  key={d.debit}>${numberWithCommas(d.debit)}</li>);
+       
+        return listItems
+       }
+            ////////////Print Credits//////////////
+            const printCredits = (array) => {
+        
+       
+                const listItems = array.map((d) => <li  key={d.credit}>${numberWithCommas(d.credit)}</li>);
+               
+                return listItems
+               }
+                ////////////Print Account//////////////
+       const printAccount = (array) => {
+        
+       
+        const listItems = array.map((d) => <li  key={d}>{d}</li>);
+       
+        return listItems
+       }
 
     useEffect(() => {
 
         let id = journalID
-        const getAccount =  async (id, path) => {
+        const getJournalEntry =  async (id, path) => {
             const journalDoc = doc(db, path, id);
             const docSnap = await getDoc(journalDoc);
             const data = docSnap.data();
+            const debAccounts = [];
+            for(let i =0; i < data.debits.length; i++)
+            {
+                debAccounts.push(data.debits[i].account)
+            }
+            const credAccounts = [];
+            for(let i =0; i < data.debits.length; i++)
+            {
+                credAccounts.push(data.credits[i].account)
+            }
+            console.log("the debit accounts are:", debitaccounts)
             setDescription(data.description)
             setUser(data.user);
             setpostRef(data.pr)
-            setAccount(data.debits[0].account)
+            setdebitAccounts(debAccounts)
+            setcreditAccounts(credAccounts)
             setDebits(data.debits);
             setCredits(data.credits);
             setjeNum(data.jeNumber)
@@ -55,14 +95,14 @@ export const JournalEntry = ()=>{
             
             console.log(data)
 
-           
         }
 
-        getAccount(id, path);
+        getJournalEntry(id, path);
         
     }, []); 
+    
   
-
+/////////////open attached document in a new tab///////////////////////
     const openInNewTab = (url) => {
         console.log(url);
         window.open(url);
@@ -71,16 +111,24 @@ export const JournalEntry = ()=>{
       const [showComment, setshowComment] = useState(false)
   
       const [approval, setApproval] = useState("");
-  
+  ////////////////////Approve journal entry///////////////////////
       const approve = async (id, value) => {
           {console.log("the value is: ", value)}
           const journaldoc = doc(db, "journalEntries", id)
           if(value === "approved")
           {
-              
+            setApproval(value)
+            setShowAlert(true)
               setAlert(variants.at(6))
               const newFields = {approved: value, dateTime: newDateTime}
               await updateDoc(journaldoc, newFields)
+
+              debitaccounts.forEach((doc)=>{
+                updateBalanceDebit(doc);
+              })
+              creditaccounts.forEach((doc)=>{
+                updateBalanceCredit(doc);
+              })
           }
          
           else
@@ -91,6 +139,8 @@ export const JournalEntry = ()=>{
               setshowComment(true)
           }
       }
+
+//////////////////////Reject journal entry/////////////////////////
       const submitRej = async (id, approval) => {
           
           if(comment.current.value==="")
@@ -106,6 +156,59 @@ export const JournalEntry = ()=>{
           }
   
       }
+////////////////////Get accounts to update balance///////////////////////
+
+    const  accountsRef = collection(db, "accounts");
+
+ 
+     const  updateBalanceDebit = async (account) => {
+
+            let debtotal = 0;
+            debits.forEach((doc)=> {
+                debtotal+= parseFloat(doc);
+            })
+    
+            const q = query(accountsRef, where("name", "==", account))
+            const querySnapshot = await getDocs(q);
+            const accountID =""
+    
+            querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+                const data = doc.data();
+                accountID = data.id;
+            });
+            const accountDoc = getDoc(db, "accounts", accountID)
+            const newFields = {balance: accountDoc.balance+parseFloat(debtotal)}
+            await updateDoc(accountDoc, newFields)
+
+        }
+        const  updateBalanceCredit = async (account) => {
+
+            let credtotal = 0;
+            credits.forEach((doc)=> {
+                credtotal+= parseFloat(doc);
+            })
+    
+            const q = query(accountsRef, where("name", "==", account))
+            const querySnapshot = await getDocs(q);
+            const accountID =""
+    
+            querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+                const data = doc.data();
+                accountID = data.id;
+            });
+            const accountDoc = getDoc(db, "accounts", accountID)
+            const newFields = {balance: accountDoc.balance-parseFloat(credtotal)}
+            await updateDoc(accountDoc, newFields)
+
+        }
+          //function for displaying cash amounts with commas where appropriate. Math.round...tofixed(2) makes it display two decimal points
+     function numberWithCommas(x) {
+
+        return ((Math.round(x * 100) / 100).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    
 
 return(
     <div>
@@ -120,24 +223,19 @@ return(
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Accounts</th>
-                                <th>Debit</th>
-                                <th>Credit</th>
+                                <th>debit accounts</th>
+                                <th>Debits</th>
+                                <th>credit accounts</th>
+                                <th>Credits</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                            <td>{jeNum}</td>
-                            <td>{account}</td>
-                            <td>
-                                {debits.map((doc)=>{
-                                    {console.log(doc.debit)}
-                                 
-                                })}
-                            </td>
-                            <td> {credits?.map((doc)=>{
-                                    <li>{doc.credit}</li>
-                                })}</td>
+                                <td>{jeNum}</td>
+                                <td>{printAccount(debitaccounts)}</td>
+                                <td>{printDebits(debits)}</td>
+                                <td>{printAccount(creditaccounts)}</td>
+                                <td>{printCredits(credits)}</td>
                             </tr>
                         </tbody>
                     </Table>
