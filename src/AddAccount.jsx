@@ -28,6 +28,8 @@ export const accountsCollectionRef = collection(db,  "accounts");
 
 export const AddAccount = () =>{
 
+
+
     
     const [newName, setNewName] = useState("")
     const [newNumber, setNewNumber] = useState(0)
