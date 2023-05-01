@@ -1,18 +1,11 @@
-///////////Created by Ashly////////////////
 import React from "react";
-import { useEffect, useState } from "react";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection} from "firebase/firestore";
 
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import {db} from './firestore';
 import { AiFillFileText } from 'react-icons/ai';
 import 'reactjs-popup/dist/index.css';
-import {Link, createSearchParams, useNavigate} from "react-router-dom"
-
-
-
-
-
+import {createSearchParams, useNavigate} from "react-router-dom"
 
 export function ChildrenList({path, accountName}){
 
@@ -21,39 +14,14 @@ export function ChildrenList({path, accountName}){
     const journalsCollectionRef = collection(db,  "journalEntries");
      const navigate = useNavigate();
 
-    //////////////////Get Journal Entries associated with account///////////////////////////////////
-   
- 
+
 
     /////////////Open attached document in a new tab/////////////
     const openInNewTab = (url) => {
         console.log(url);
         window.open(url);
       };
-        ////////////Print Debits//////////////
-   const printDebits = (array) => {
-    
-   
-    const listItems = array.map((d) => <li  key={d.debit}>${numberWithCommas(d.debit)}</li>);
-   
-    return listItems
-   }
-        ////////////Print Credits//////////////
-        const printCredits = (array) => {
-    
-   
-            const listItems = array.map((d) => <li  key={d.credit}>${numberWithCommas(d.credit)}</li>);
-           
-            return listItems
-           }
-            ////////////Print Account//////////////
-   const printAccount = (array) => {
-    
-   
-    const listItems = array.map((d) => <li  key={d.account}>{d.account}</li>);
-   
-    return listItems
-   }
+  
     
 
 
