@@ -16,13 +16,13 @@ export const ManagerHome = (props) => {
         <>
         <div className='dash-container'>
             <div className="dashbox">
-                <Link to="addaccount">
-                    <div className = "card">
-                        <h3>Add<br></br> Account</h3>
-                        <br></br>
-                        <BiAddToQueue size={50}/>
-                    </div>
-                </Link>
+            <Link to="createje">
+                <div className = "card">
+                    <h3>Create<br></br>Journal Entries</h3>
+                    <br></br>
+                    < IoIosCreate size={50}/>
+                </div>
+            </Link>
                 <Link to="viewaccounts">
                     <div className = "card">
                         <h3>View<br></br> Accounts</h3>
@@ -39,15 +39,6 @@ export const ManagerHome = (props) => {
                         <AiFillCheckCircle size={50}/>
                     </div>
                 </Link>
-                <Link to="viewusers">
-                    <div className = "card">
-                        <h3>View</h3>
-                        
-                        <h3>Users</h3>
-                        <br></br>
-                        <AccountCircleIcon sx={{ fontSize: 50 }}/>
-                    </div>
-                </Link>
                 <Link to="financialreport">
                     <div className = "card">
                         <h3>Financial</h3>
@@ -56,6 +47,7 @@ export const ManagerHome = (props) => {
                         <FaBalanceScaleLeft size={50}/>
                     </div>
                 </Link>
+                
             </div>
         </div>
 

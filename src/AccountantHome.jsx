@@ -1,12 +1,7 @@
 import { IoIosCreate } from 'react-icons/io';
-import { AiOutlineUserAdd } from 'react-icons/ai';
 import { ImEye } from 'react-icons/im';
-import { ImWarning } from 'react-icons/im';
 import { Link } from 'react-router-dom';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { BiAddToQueue} from 'react-icons/bi';
-
-
+import {FaBalanceScaleLeft} from 'react-icons/fa'
 
 export const AccountantHome = (props) => {
 
@@ -37,6 +32,14 @@ export const AccountantHome = (props) => {
                     < IoIosCreate size={50}/>
                 </div>
             </Link>
+            <Link to="financialreport">
+                    <div className = "card">
+                        <h3>Financial</h3>
+                        <h3>Report</h3>
+                        <br></br>
+                        <FaBalanceScaleLeft size={50}/>
+                    </div>
+                </Link>
         </div>
         </div>
           

@@ -57,6 +57,14 @@ h1{
   background: #A16AE8;
   border-radius: 10px;
 }
+.column-container-is{
+  display: column;
+  align-items: center;
+  width: 50rem;
+  padding: 2rem;
+  background: #A16AE8;
+  border-radius: 10px;
+}
 .column-container-invis{
   margin-top:10rem;
   display: flex;
@@ -79,6 +87,12 @@ h1{
   flex-direction: row;
   
 }
+.income-statement-container{
+  display: flex;
+  flex-direction: row;
+  
+  
+}
 .bs-table-container{
   display: flex;
   flex-direction: column;
@@ -88,12 +102,11 @@ h1{
 }
 .notifications-container{
   width: 80rem;
-  height: 50rem;
+  height: 80rem;
   padding: 2rem;
   background: #A16AE8;
   border-radius: 10px;
   margin-top:10rem;
-  
   color: white;
   box-shadow: 3px 5px 5px grey;
 }

@@ -1,5 +1,6 @@
 import { TrialBalance } from "./TrialBalance"
 import { BalanceSheet } from "./BalanceSheet"
+import { IncomeStatement } from "./IncomeStatement"
 import { useState } from "react"
 
 export const FinancialReport = () => {
@@ -14,6 +15,7 @@ export const FinancialReport = () => {
                 <option value="default">Select Report...</option>
                 <option value="tb">Trial Balance</option>
                 <option value="bs">Balance Sheet</option>
+                <option value="is">Income Statement</option>
             </select>
        
 
@@ -25,6 +27,11 @@ export const FinancialReport = () => {
         {report === "bs" &&
         <>
         <BalanceSheet/>
+        </>
+        }
+        {report === "is" &&
+        <>
+        <IncomeStatement/>
         </>
         }
 

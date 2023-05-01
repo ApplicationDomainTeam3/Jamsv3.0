@@ -168,7 +168,7 @@ export const ViewAccounts = () =>{
                             <td>${numberWithCommas(account.balance)}</td>
                             <td>{account.description}</td>
                             <td>{account.user}</td>
-                            <td>{account.dateTime}</td>
+                            <td>{account.dateTime.toString()}</td>
                             <td>
                                 <button className="custom-button-va" onClick={()=>{openLedger(account.id)}}><AiFillProfile size={25}/></button>
                             </td>

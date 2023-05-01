@@ -349,6 +349,7 @@ const handleRemCred= (e, id) => {
                                             <option value="retained earnings">retained earnings</option>
                                             <option value="net earnings">net earnings</option>
                                             <option value="taxes">taxes</option>
+                                            <option value="product sales">product sales</option>
 
                 </select>
 
