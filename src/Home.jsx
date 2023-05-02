@@ -29,6 +29,7 @@ export const Home= () => {
     const user = auth.currentUser;
     
 
+    /////////////////get the user and their role. The dashboard rendered is determined by user's role/////////////////
     useEffect(() => {
         const listen = onAuthStateChanged(auth, async (user) => {
             if(user) {
@@ -112,10 +113,12 @@ export const Home= () => {
             <IncomeData/>
             <BSData/>
             </div>
+        {role === "manager" &&
             <div className="messages-container">
             <h2>Messages</h2>
             <DashMessages/>
             </div>
+        }
         </div>
         </>
         
