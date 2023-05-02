@@ -7,6 +7,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+
 export const FilterSearch = () => {
   const [filter, setFilter] = useState('all');
   const journalEntriesref = collection(db,  "journalEntries")
@@ -23,23 +24,23 @@ export const FilterSearch = () => {
   const filteredDocs = docs?.filter((doc) => {
   if (filter === 'all') return true;
   if (filter === 'approved') return doc.approved === 'approved';
-  if (filter === 'rejected') return doc.approved === 'rejected';  // add this line
-  if (filter === 'unapproved') return !doc.approved;
+  if (filter === 'rejected') return doc.approved === 'rejected';  
+  if (filter === 'pending') return doc.approved === 'pending';
   return false;
 });
 
 
-/*
+
 const filteredDocsByDate = filteredDocs?.filter((doc) => {
-    const docDate = moment(doc.dateTime.toDate());
+    const docDate = moment(doc.dateTime);
     return docDate.isBetween(moment(dateRange.startDate), moment(dateRange.endDate), 'day', '[]');
   });
-  */
+  
  
 
   const rangeFilteredDocs = filteredDocs?.filter((doc) => {
     if (!startDate || !endDate) return true;
-    let date = moment(doc.dateTime.toDate());
+    let date = moment(doc.dateTime);
     return date.isBetween(startDate, endDate, null, '[]');
   });
 
@@ -60,6 +61,7 @@ const filteredDocsByDate = filteredDocs?.filter((doc) => {
           {filteredDocs?.map((doc)=>(
             <tr key={Math.random()}>
               <td>{doc.jeNumber}</td>
+              <td>{doc.category}</td>
               <td>{doc.user}</td>
               <td>{doc.approved}</td>
               <td>{doc.dateTime}</td> 
@@ -73,16 +75,17 @@ const filteredDocsByDate = filteredDocs?.filter((doc) => {
 
  return (
     <div>
+       <div>
+        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+        <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+      </div>
       <div>
         <button onClick={() => setFilter('all')}>All</button>
         <button onClick={() => setFilter('approved')}>Approved</button>
         <button onClick={() => setFilter('rejected')}>Rejected</button>
-        <button onClick={() => setFilter('unapproved')}>Unapproved</button>
+        <button onClick={() => setFilter('pending')}>Pending</button>
       </div>
-      <div>
-        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-        <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
-      </div>
+     
       <TableWithFilter />
     </div>
   );
