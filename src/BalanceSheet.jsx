@@ -8,7 +8,6 @@ import { Alert } from "./Alert";
 import { variants } from "./variants";
 import * as htmlToImage from 'html-to-image';
 import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-import { frdCollectionRef } from "./IncomeStatement";
 
 import Table from 'react-bootstrap/Table';
 import menuLogo from './img/JAMS_1563X1563.png'
@@ -148,8 +147,6 @@ useEffect(() => {
             }
             const currentRatio = parseFloat(debitSum/creditSum)
             const equityperctotal = parseFloat(equitySum/debitSum)
-            await addDoc(frdCollectionRef, {name: "Current Ratio", ratio: currentRatio})
-            await addDoc(frdCollectionRef, {name: "Equity as % of total", ratio: equityperctotal})
            
         }
        
