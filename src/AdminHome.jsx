@@ -28,6 +28,13 @@ export const AdminHome = (props) => {
                     <ImEye size={50}/>
                 </div>
             </Link>
+            <Link to="FilterSearch">
+                <div className = "card">
+                    <h3> FilterSearch</h3>
+                    <br></br>
+                    <ImEye size={50}/>
+                </div>
+            </Link>
 
         </div>
         <div  className="dashbox">
@@ -55,15 +62,6 @@ export const AdminHome = (props) => {
                 </div>
             </Link>
         </div>
-
-
-            <Link to="FilterSearch">
-                <div className = "card">
-                    <h3> FilterSearch</h3>
-                    <br></br>
-                    <ImEye size={50}/>
-                </div>
-            </Link>
         
         </div>
       
