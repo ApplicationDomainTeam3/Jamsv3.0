@@ -25,6 +25,8 @@ export const AccountantHome = (props) => {
                     <ImEye size={50}/>
                 </div>
             </Link>
+            </div>
+            <div className="dashbox">
             <Link to="createje">
                 <div className = "card">
                     <h3>Create<br></br>Journal Entries</h3>
@@ -40,7 +42,7 @@ export const AccountantHome = (props) => {
                         <FaBalanceScaleLeft size={50}/>
                     </div>
                 </Link>
-        </div>
+            </div>
         </div>
           
          

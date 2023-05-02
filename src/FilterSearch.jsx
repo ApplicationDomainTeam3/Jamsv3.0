@@ -62,7 +62,7 @@ const filteredDocsByDate = filteredDocs?.filter((doc) => {
               <td>{doc.jeNumber}</td>
               <td>{doc.user}</td>
               <td>{doc.approved}</td>
-              <td>{(doc.dateTime)}</td> 
+              <td>{doc.dateTime}</td> 
               <td>{doc.pr}</td>
             </tr>
           ))}

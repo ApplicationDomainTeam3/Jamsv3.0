@@ -70,6 +70,20 @@ h1{
   display: flex;
   flex-direction: column;
 }
+.financial-ratios-container{
+  background: #603f8b;
+  display: column;
+  align-content: flex-start;
+  width: 35rem;
+  height: 40rem;
+  padding: 2rem;
+  border-radius: 6px;
+
+
+}
+h4{
+  color:#B4FEE7
+}
 .select-report{
   width: 20rem;
 }

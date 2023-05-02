@@ -8,9 +8,21 @@ import { BiAddToQueue} from 'react-icons/bi';
 import {AiFillCheckCircle} from  'react-icons/ai'
 import {TrialBalance} from './TrialBalance'
 import {FaBalanceScaleLeft} from 'react-icons/fa'
+import { Table } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { db } from './firestore';
+import { collection} from "firebase/firestore";
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+
 
 
 export const ManagerHome = (props) => {
+
+    const [frdata, setfrdata] = useState([]);
+    const query = collection(db, "financial-ratios-data");
+    const docs = useCollectionData(query)
+  
+
 
     return (
         <>
@@ -46,10 +58,11 @@ export const ManagerHome = (props) => {
                         <br></br>
                         <FaBalanceScaleLeft size={50}/>
                     </div>
-                </Link>
-                
+                </Link>  
             </div>
+            
         </div>
+        
 
         </>
         

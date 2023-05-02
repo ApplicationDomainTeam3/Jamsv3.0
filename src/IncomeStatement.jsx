@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import {db} from './firestore';
-import { collection, getDocs, doc, setDoc, getCountFromServer } from "firebase/firestore"
+import { collection, getDocs, doc, setDoc, addDoc, getCountFromServer } from "firebase/firestore"
 import { usersCollectionRef } from './firebase';
 import { query, where } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -139,7 +139,8 @@ useEffect(() => {
                 const gpchange = grossProfit-grossProfit
                 const opchange = operatingProfit-operatingProfit
                 setMovement([pschange, cogschange,  gpchange,ohechange, opchange])
-                    
+                const grossProfitMargin = parseFloat((productSales-costofGS)/productSales)
+
            
         }
 
@@ -160,7 +161,7 @@ useEffect(() => {
         const dataUrl = await htmlToImage.toPng(domEl.current);
 
        const link = document.createElement('a');
-       link.download = "balance-sheet.png";
+       link.download = "income-statement.png";
        link.href = dataUrl;
        link.click();
     }
@@ -172,7 +173,7 @@ useEffect(() => {
                 <div > 
                     <div className="column-container-is">
                     <h1>Income Statement</h1>
-                    <button className="custom-button-tb" onClick={downloadReport}>Download Balance Sheet</button>
+                    <button className="custom-button-tb" onClick={downloadReport}>Download Income Statement</button>
                     {showAlert === true &&
            
                         <Alert variant={alert} />

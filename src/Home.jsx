@@ -10,6 +10,8 @@ import {AccountantHome} from './AccountantHome'
 import { useNavigate } from "react-router-dom";
 import menuLogo from './img/JAMS_1563X1563.png'
 import Table from 'react-bootstrap/Table';
+import { IncomeData } from "./IncomeData";
+import {BSData} from "./BSData"
 
 
 
@@ -78,7 +80,11 @@ export const Home= () => {
             <AccountantHome />
         }
        </div>
-       
+       <div className="financial-ratios-container">
+        <h2>Financial Ratio Analysis</h2>
+        <IncomeData/>
+        <BSData/>
+        </div>
         </>
         
          

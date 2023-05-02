@@ -56,9 +56,6 @@ export const AddAccount = () =>{
 
     const close = () => ref2.current.close();
 
-
-
-
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
             if(user) {
@@ -182,7 +179,6 @@ useEffect(() => {
 //////////////////Create Account ////////////////////////////////
     const createAccount = async (e) => {
         e.preventDefault()
-
        
         handleChangeCredit()
         let debitSum = sumDebit(debitInputs)
@@ -191,8 +187,7 @@ useEffect(() => {
         console.log("the credit sum is", creditSum)
         setNewCredit(creditSum);
         setNewDebit(debitSum);
-        const balance = parseFloat(debitSum - creditSum)
-        //dupAccount = checkDup(newName);
+        const balance = parseFloat(newIB + debitSum - creditSum)
         
     //check to make sure valid entries for name and number have been entered, if so create account
     if(newName !== '' && newNumber !== 0 && dupName === false && dupNum === false){
@@ -200,8 +195,7 @@ useEffect(() => {
 
       
                 if(debitInputs.at(0).debit > 0 || creditInputs.at(0).credit > 0){
-                    const docRef=doc(db, "journalEntries", refid);
-                    await setDoc(docRef, {account: newName, jeNumber: refid,  debits: debitInputs, credits: creditInputs, description:newDescription,  dateTime: newDateTime, approved: approved, pr: postReference, user: username, role: role});
+                  
                     setShowAlert(true)
                     setAlert(variants.at(5))
                 }

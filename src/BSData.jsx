@@ -1,25 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import {db} from './firestore';
-import { collection, getDocs, getDoc, deleteDoc, doc, setDoc, updateDoc, getCountFromServer } from "firebase/firestore"
-import { IoIosCreate } from 'react-icons/io';
-import {Link, createSearchParams, useNavigate} from "react-router-dom"
-import { ImWarning } from 'react-icons/im';
-import { AiFillProfile } from 'react-icons/ai';
+import { collection, getDocs, doc, setDoc, getCountFromServer } from "firebase/firestore"
 import { usersCollectionRef } from './firebase';
 import { query, where } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { Alert } from "./Alert";
 import { variants } from "./variants";
-import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-import { frdCollectionRef } from "./IncomeStatement";
+import { Table } from "react-bootstrap";
 
 
-import Table from 'react-bootstrap/Table';
-import menuLogo from './img/JAMS_1563X1563.png'
-
-
-export const TrialBalance = () =>{
+export const BSData = () =>{
    
     const [accounts, setAccounts] = useState([]);
     const accountsCollectionRef = collection(db,  "accounts");
@@ -35,6 +24,8 @@ export const TrialBalance = () =>{
     const [newDateTime, setNewDateTime] = useState(Date)
     const [refid, setrefid] = useState(0);
     const domEl = useRef(null);
+    const [currentRatio, setcurrencyRatio] = useState(0)
+    const [equityperctotal, setequityperctotal] = useState(0);
 
     
 //////////////////Get user data///////////////////////////////////
@@ -103,10 +94,12 @@ useEffect(() => {
 
     useEffect(() => {
 
-        const getTrialBalance =  async (refid) => {
+        const getBalanceSheet =  async (refid) => {
      
             let debitSum = 0;
             let creditSum = 0;
+            let liabilitySum = 0;
+            let equitySum = 0;
             let notification = "The accounts are not balanced! Assets must equal Liabilies + Equity!"
 
     //////Sum up debit accounts and credit accounts to get totals
@@ -124,8 +117,15 @@ useEffect(() => {
                     creditSum += parseFloat(data.balance)
                   
                     }
+                    if(data.category === "liability")
+                    { 
+                     liabilitySum += parseFloat(data.balance)
+                     }
 
-                    
+                    if(data.category === "equity")
+                    {
+                        equitySum += parseFloat(data.balance)
+                    }
                     });
                 
             // the sum of the credits is subtracted from the sum of the credits and set as the new balance
@@ -142,96 +142,52 @@ useEffect(() => {
                 await setDoc(mnotifRef, {notification: notification, dateTime: newDateTime})
                 
             }
+            const currentRatio = parseFloat(debitSum/creditSum)
+            const equityperctotal = parseFloat(equitySum/debitSum)
+            setcurrencyRatio(currentRatio)
+            setequityperctotal(equityperctotal)
            
         }
+       
 
-        getTrialBalance(refid);
+        getBalanceSheet(refid);
         
     }, []); 
 
 
-    //function for displaying cash amounts with commas where appropriate. Math.round...tofixed(2) makes it display two decimal points
-    function numberWithCommas(x) {
-
-        
-        return ((Math.round(x * 100) / 100).toFixed(2)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-    /////////Download image of trial balance report////////////////////////
-
-    const downloadReport = async () =>{
-        const dataUrl = await htmlToImage.toPng(domEl.current);
-
-       const link = document.createElement('a');
-       link.download = "trial-balance.png";
-       link.href = dataUrl;
-       link.click();
-    }
+  
    
+ 
    
 
     return(
         <>
-                    <div id="domEl" ref={domEl} className="trial-balance-container">
-                    <h1>Trial Balance</h1>
-                    {showAlert === true &&
-           
-           <Alert variant={alert} />
-               }
-                    <button className="custom-button-tb" onClick={downloadReport}>Download Trial Balance</button>
-                    <Table responsive striped bordered >
-
-                        <thead>
-                            <tr>
-                            <th>Accounts</th>
-                            <th>Debit</th>
-                            <th>Credit</th>
-                            </tr>
-                        </thead>
-                       
-                        <tbody >
-                            {accounts && accounts.map((account) => (
-                            <tr key={account.id}>
-                            <td>{account.name}</td>
-                            {account.category === "asset" &&
-                            <>
-                                 <td>${numberWithCommas(account.balance)}</td>
-                                 <td></td>
-                            </>
-                            }
-                            {account.category === "liability"  &&
-                            <>
-                                <td></td>
-                                 <td>${numberWithCommas(account.balance)}</td>
-                            </>
-                            
-                            || account.category === "expense"  &&
-                            <>
-                                <td></td>
-                                 <td>${numberWithCommas(account.balance)}</td>
-                            </>|| account.category === "equity" &&
-                            <>
-                                <td></td>
-                                 <td>${numberWithCommas(account.balance)}</td>
-                            </>
-
-                            }
-                           
-                            </tr>
-                            ))}
-                            <tr>
-                                <td>Total: </td>
-                                <td>${numberWithCommas(debits)}</td>
-                                <td>${numberWithCommas(credits)}</td>
-                            </tr>
-                        </tbody>
-                        
-                    </Table>
-                    
-                    
         
-                   </div>
-                  
- 
+
+        
+           <Table>
+                <tbody>
+                    <tr>
+                        <td>
+                        <h4>Current Ratio:</h4>
+                        </td>
+                        <td><h4>{currentRatio.toFixed(2)}</h4></td>
+
+                    </tr>
+                </tbody>
+            </Table>
+            <Table>
+                <tbody>
+                    <tr>
+                        <td>
+                        <h4>Equity as Percentage of Total:</h4>
+                        </td>
+                        <td><h4>{equityperctotal}%</h4></td>
+                    </tr>
+                </tbody>
+            </Table>
         </>
+        
+      
     )
 }
