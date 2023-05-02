@@ -146,6 +146,40 @@ useEffect(() => {
             const equityperctotal = parseFloat(equitySum/debitSum)
             setcurrencyRatio(currentRatio)
             setequityperctotal(equityperctotal)
+            if(currentRatio > 1)
+            {
+                document.getElementById("cr").style.color = "#456320";
+                document.getElementById("cr").style.backgroundColor= "#c5fa75";
+                document.getElementById("cr").style.opacity = "0.7"; 
+            }
+            else if(currentRatio > .5 && currentRatio <= 1)
+            {
+                document.getElementById("cr").style.color = "#456320";
+                document.getElementById("cr").style.backgroundColor= "#ed9e0c";
+                document.getElementById("cr").style.opacity = "0.7"; 
+            }
+            else if(currentRatio <= 0.5)
+            {
+                document.getElementById("cr").style.color = "#c91704";
+                document.getElementById("cr").style.backgroundColor= "#f07f73";
+                document.getElementById("cr").style.opacity = "0.7";             }
+            if(equityperctotal*100 > 50)
+            {
+                document.getElementById("epc").style.color = "#456320";
+                document.getElementById("epc").style.backgroundColor= "#c5fa75";
+                document.getElementById("epc").style.opacity = "0.7";             }
+            else if(equityperctotal*100 > 25 && equityperctotal*100 <= 50)
+            {
+                document.getElementById("epc").style.color = "#456320";
+                document.getElementById("epc").style.backgroundColor= "#ed9e0c";
+                document.getElementById("epc").style.opacity = "0.7"; 
+            }
+            else if(equityperctotal*100 <= 25)
+            {
+                document.getElementById("epc").style.color = "#c91704";
+                    document.getElementById("epc").style.backgroundColor= "#f07f73";
+                    document.getElementById("epc").style.opacity = "0.7"; 
+            }
            
         }
        
@@ -164,28 +198,34 @@ useEffect(() => {
         <>
         
 
-        
+            <div id="cr">
            <Table>
                 <tbody>
                     <tr>
                         <td>
-                        <h4>Current Ratio:</h4>
+                        <h4 >Current Ratio:</h4>
                         </td>
-                        <td><h4>{currentRatio.toFixed(2)}</h4></td>
+                        <td>
+                        <h4 >{currentRatio.toFixed(2)}</h4>
+                        </td>
 
                     </tr>
                 </tbody>
             </Table>
+            </div>
+            <div id="epc">
             <Table>
                 <tbody>
                     <tr>
                         <td>
-                        <h4>Equity as</h4><h4> Percentage of Total:</h4>
+                        <h4 >Equity as</h4>
+                        <h4 > Percentage of Total:</h4>
                         </td>
-                        <td><h4>{equityperctotal.toFixed(2)}%</h4></td>
+                        <td ><h4 >{equityperctotal.toFixed(2)*100}%</h4></td>
                     </tr>
                 </tbody>
             </Table>
+            </div>
         </>
         
       
