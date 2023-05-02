@@ -194,16 +194,8 @@ useEffect(() => {
             await addDoc(accountsCollectionRef, {name: newName, number: newNumber, category: newCategory, credit: creditSum, debit: debitSum, initialBalance: newIB, balance: balance, description: newDescription, dateTime: newDateTime, user: authUser.email})
 
       
-                if(debitInputs.at(0).debit > 0 || creditInputs.at(0).credit > 0){
-                  
-                    setShowAlert(true)
-                    setAlert(variants.at(5))
-                }
-                else{
-                     setShowAlert(true)
-                    setAlert(variants.at(3))
-                }
-            
+            setShowAlert(true)
+            setAlert(variants.at(5))
            
             }
        
