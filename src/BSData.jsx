@@ -148,30 +148,30 @@ useEffect(() => {
             setequityperctotal(equityperctotal)
             if(currentRatio > 1)
             {
-                document.getElementById("cr").style.color = "#456320";
-                document.getElementById("cr").style.backgroundColor= "#c5fa75";
+                document.getElementById("cr").style.color = "#0dd400";
+                document.getElementById("cr").style.backgroundColor= "#e0ffde";
                 document.getElementById("cr").style.opacity = "0.7"; 
             }
             else if(currentRatio > .5 && currentRatio <= 1)
             {
-                document.getElementById("cr").style.color = "#456320";
-                document.getElementById("cr").style.backgroundColor= "#ed9e0c";
+                document.getElementById("cr").style.color = "#e88000";
+                document.getElementById("cr").style.backgroundColor= "#f8fa75";
                 document.getElementById("cr").style.opacity = "0.7"; 
             }
             else if(currentRatio <= 0.5)
             {
                 document.getElementById("cr").style.color = "#c91704";
-                document.getElementById("cr").style.backgroundColor= "#f07f73";
+                document.getElementById("cr").style.backgroundColor= "#ffec96";
                 document.getElementById("cr").style.opacity = "0.7";             }
             if(equityperctotal*100 > 50)
             {
-                document.getElementById("epc").style.color = "#456320";
-                document.getElementById("epc").style.backgroundColor= "#c5fa75";
+                document.getElementById("epc").style.color = "#0dd400";
+                document.getElementById("epc").style.backgroundColor= "#e0ffde";
                 document.getElementById("epc").style.opacity = "0.7";             }
             else if(equityperctotal*100 > 25 && equityperctotal*100 <= 50)
             {
-                document.getElementById("epc").style.color = "#456320";
-                document.getElementById("epc").style.backgroundColor= "#ed9e0c";
+                document.getElementById("epc").style.color = "#e88000";
+                document.getElementById("epc").style.backgroundColor= "#fadbb4";
                 document.getElementById("epc").style.opacity = "0.7"; 
             }
             else if(equityperctotal*100 <= 25)

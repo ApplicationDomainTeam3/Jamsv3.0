@@ -112,7 +112,7 @@ export const Home= () => {
             <IncomeData/>
             <BSData/>
             </div>
-            <div className="financial-ratios-container">
+            <div className="messages-container">
             <h2>Messages</h2>
             <DashMessages/>
             </div>

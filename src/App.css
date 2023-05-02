@@ -71,11 +71,23 @@ h1{
   flex-direction: column;
 }
 .financial-ratios-container{
+  background: #1a1a36;
+  display: column;
+  align-content: flex-start;
+  width: 35rem;
+  height: 35rem;
+  padding: 2rem;
+  border-radius: 6px;
+  margin: .2rem;
+  box-shadow: 3px 5px 5px grey;
+
+}
+.messages-container{
   background: #603f8b;
   display: column;
   align-content: flex-start;
   width: 35rem;
-  height: 40rem;
+  height: 15rem;
   padding: 2rem;
   border-radius: 6px;
   margin: .2rem;
