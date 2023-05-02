@@ -17,7 +17,7 @@ import {
 
   import { useState } from "react";
   
-  export default function Eform () {
+  export  function Eform () {
     const [email, setEmail] = useState("");
     const [subject, setSubject] = useState("");
     const [message, setMessage] = useState("");

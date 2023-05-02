@@ -15,6 +15,7 @@ import {BSData} from "./BSData"
 import {db} from './firestore';
 import { collection, deleteDoc, doc} from "firebase/firestore"
 import { DashMessages } from "./DashMessages";
+import {Modal} from './Popup/Modal';
 
 
 
@@ -97,6 +98,7 @@ export const Home= () => {
 
         </div>
        <div className="home-container">
+        <Modal/>
        {role === "admin" &&
             <AdminHome />
         }

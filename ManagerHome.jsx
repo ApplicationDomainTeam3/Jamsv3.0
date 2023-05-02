@@ -9,21 +9,18 @@ import {AiFillCheckCircle} from  'react-icons/ai'
 import {TrialBalance} from './TrialBalance'
 import {FaBalanceScaleLeft} from 'react-icons/fa'
 import React, { useState } from 'react';
-import Modal from './Popup/modal';
-
-
+import {Modal} from './src/Popup/Modal';
 
 
 export const ManagerHome = (props) => {
-
-    
     
     return (
 
         <>
-          <Modal />
+          
            
         <div className='dash-container'>
+        <Modal />
             <div className="dashbox">
             <Link to="createje">
                 <div className = "card">

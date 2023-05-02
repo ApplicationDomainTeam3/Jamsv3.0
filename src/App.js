@@ -33,6 +33,7 @@ import { Notifications } from './Notifications';
 import { ViewJE } from './ViewJE';
 import { BalanceSheet } from './BalanceSheet';
 import { FinancialReport } from './FinancialReport';
+import { Emailform } from './Popup/Emailform';
 
 
 
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
   {
     path: "home/addaccount",
     element: <AddAccount />
+  },
+  {
+    path: "home/popupform",
+    element: <Emailform/>
   },
   {
     path:"home/createje",

@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 
 
 //popup 
-export default function Modal() {
+export function Modal() {
+  console.log("the modal is rendering")
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
@@ -20,7 +21,7 @@ export default function Modal() {
 
   return (
     <>
-      <button onClick={toggleModal} className="btn-modal">
+      <button className="custom-button" onClick={toggleModal} >
         Email
       </button>
 
@@ -29,7 +30,7 @@ export default function Modal() {
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
           
-                <Link to="popupeform">
+                <Link to="popupform">
             <h2>Send Email</h2>
                  
             

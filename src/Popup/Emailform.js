@@ -1,8 +1,8 @@
 
 import "./modal.css";
-import Eform from './Popup/eform';
+import {Eform} from "./eform";
 
-function emailform() {
+export function Emailform() {
   return (
     <div className="emailform">
       <Eform />
@@ -10,6 +10,6 @@ function emailform() {
   );
 }
 
-export default emailform;
+
 
 
