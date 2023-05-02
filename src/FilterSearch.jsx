@@ -32,7 +32,7 @@ export const FilterSearch = () => {
 
 
 const filteredDocsByDate = filteredDocs?.filter((doc) => {
-    const docDate = moment(doc.dateTime.toString());
+    const docDate = moment(doc.dateTime.toDate().toLocaleString);
     return docDate.isBetween(moment(dateRange.startDate), moment(dateRange.endDate), 'day', '[]');
   });
  

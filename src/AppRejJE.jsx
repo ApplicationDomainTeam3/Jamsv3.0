@@ -10,6 +10,7 @@ import { variants } from "./variants"
 import { collection } from "firebase/firestore";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { createSearchParams, useNavigate} from "react-router-dom"
+import moment from 'moment';
 
 
 export const AppRejJE = () => {
@@ -81,7 +82,7 @@ export const AppRejJE = () => {
                    </td>
                  
                     <td>{doc.description}</td>
-                    <td>{doc.dateTime}</td>
+                    <td>{doc.dateTime.toDate().toLocaleString()}</td>
                     <td>
                         <button className="link-btn" onClick={()=>openJournal("journalEntries", doc.jeNumber)}>{doc.pr}</button>
                     </td>
