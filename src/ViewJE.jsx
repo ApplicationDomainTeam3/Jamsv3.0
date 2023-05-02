@@ -61,7 +61,7 @@ export const ViewJE = () => {
                    </td>
                  
                     <td>{doc.description}</td>
-                    <td>{doc.dateTime}</td>
+                    <td>{doc.dateTime.toDate().toLocaleString()}</td>
                     <td>{doc.pr}</td>
                     <td>{doc.approved}</td>
                     <td>{doc.comment}</td>

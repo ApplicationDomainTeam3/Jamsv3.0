@@ -9,6 +9,10 @@ import {AiOutlineSend} from 'react-icons/ai'
 import { Alert } from "./Alert"
 import { variants } from "./variants"
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { usersCollectionRef } from './firebase';
+
+
 
 
 
@@ -23,7 +27,6 @@ export const JournalEntry = ()=>{
     console.log("The journal id is  ", journalID)
    
 
-    const [user, setUser] = useState('')
     const [postref, setpostRef] = useState('')
     const [account, setAccount] = useState('')
     const [creditaccounts, setcreditAccounts] = useState([])
@@ -38,6 +41,54 @@ export const JournalEntry = ()=>{
     const [showAlert, setShowAlert] = useState(false)
     const [newDateTime, setNewDateTime] = useState(new Date())
     const [newBalance, setNewBalance] = useState(0);
+    const [authUser, setAuthuser] = useState(null);
+    const [role, setRole] = useState("")
+    const [userUID, setuserUID] = useState("")
+    const [jeuser, setJEUser]= useState("")
+    const [username, setUsername] = useState("")
+    const auth = getAuth();
+    const user = auth.currentUser;
+    
+
+    /////////////////get the user and their role. The dashboard rendered is determined by user's role/////////////////
+    useEffect(() => {
+        const listen = onAuthStateChanged(auth, async (user) => {
+            if(user) {
+                setAuthuser(user) //if user us logged in, set authuser to the logged in user
+                setuserUID(user.uid)
+                
+                
+                const q = query(usersCollectionRef, where("userUID", "==", user.uid));
+               
+
+                const querySnapshot = await getDocs(q);
+                if(querySnapshot.empty){
+                    console.log("no document")
+                }
+                querySnapshot.forEach((doc)=>{
+                    console.log(doc.id, " => ", doc.data());
+                    const data = doc.data();
+                    setUsername(data.username);
+                    setRole(data.role)
+                    console.log("the user's role is: ", role)
+                })
+                
+
+
+            }else{
+                setAuthuser(null);//otherwise authuser is null
+                
+            }
+            
+            
+        });
+
+        return () => {
+            listen();
+        }
+
+    }, [authUser, userUID, role]);
+
 
       ////////////Print Debits//////////////
       const printDebits = (array) => {
@@ -83,7 +134,7 @@ export const JournalEntry = ()=>{
             }
             console.log("the debit accounts are:", debitaccounts)
             setDescription(data.description)
-            setUser(data.user);
+            setJEUser(data.user);
             setpostRef(data.pr)
             setdebitAccounts(debAccounts)
             setcreditAccounts(credAccounts)
@@ -247,14 +298,19 @@ return(
                                 <th>Created</th>
                                 <th>Post Reference</th>
                                 <th>Attachments</th>
-                                <th>Approve/Reject</th>
+                                {role === "manager" &&
+                                <>
+                                    <th>Approve/Reject</th>
+                                </>
+                                }
+                                
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                             <td>{description}</td>
-                            <td>{user}</td>
-                            <td>{date.toString()}</td>
+                            <td>{username}</td>
+                            <td>{date.toLocaleString()}</td>
                             <td>
                             {postref}
                         </td>
@@ -262,11 +318,14 @@ return(
                                     <button role="link" className="custom-button-je" onClick={() => openInNewTab(files)}><AiFillFileText size={25}/></button>
                                     }
                             </td>
+                            {role === "manager" &&
+                                <>
                             <td> <select value={approval} onChange={(e) => approve(jeNum, e.target.value)}>
                                 <option value="default">approve/reject</option>
                                 <option value="approved">approve</option>
                                 <option value="rejected">reject</option>
                             </select>
+                          
                         {showComment && 
                                 
                                 <>
@@ -275,6 +334,8 @@ return(
                                 </>
                                 }
                      </td>
+                     </>
+                            }
                             </tr>
                         </tbody>
                     </Table>
