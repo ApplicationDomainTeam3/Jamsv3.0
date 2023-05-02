@@ -81,7 +81,7 @@ export const AppRejJE = () => {
                    </td>
                  
                     <td>{doc.description}</td>
-                    <td>{doc.dateTime}</td>
+                    <td>{doc.dateTime.toString()}</td>
                     <td>
                         <button className="link-btn" onClick={()=>openJournal("journalEntries", doc.jeNumber)}>{doc.pr}</button>
                     </td>

@@ -254,7 +254,7 @@ return(
                             <tr>
                             <td>{description}</td>
                             <td>{user}</td>
-                            <td>{date}</td>
+                            <td>{date.toString()}</td>
                             <td>
                             {postref}
                         </td>

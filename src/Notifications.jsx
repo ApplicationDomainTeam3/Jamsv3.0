@@ -52,7 +52,7 @@ export const Notifications = () => {
                     <tbody >
                         {notifications && notifications.map((notification) => (
                         <tr key={notification.id}>
-                        <td>{notification.dateTime}</td>
+                        <td>{notification.dateTime.toString()}</td>
                         <td>{notification.notification}</td>
             
                         <td>
