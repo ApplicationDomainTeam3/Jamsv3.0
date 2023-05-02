@@ -36,7 +36,7 @@ export const JournalEntry = ()=>{
     const [files, setFiles] = useState("");
     const [alert, setAlert] = useState(variants.at(0))
     const [showAlert, setShowAlert] = useState(false)
-    const [newDateTime, setNewDateTime] = useState(Date)
+    const [newDateTime, setNewDateTime] = useState(new Date())
     const [newBalance, setNewBalance] = useState(0);
 
       ////////////Print Debits//////////////
@@ -90,7 +90,7 @@ export const JournalEntry = ()=>{
             setDebits(data.debits);
             setCredits(data.credits);
             setjeNum(data.jeNumber)
-            setDate(data.dateTime)
+            setDate(data.dateTime.toDate().toLocaleString())
             setFiles(data.files)
             
             console.log(data)
