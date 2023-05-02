@@ -58,7 +58,7 @@ export function EditAccount(account, seteditbox){
     }, []);
 
 
-    const [newDateTime, setNewDateTime] = useState(Date)
+    const [newDateTime, setNewDateTime] = useState(new Date())
     const [newName, setNewName] = useState(name)
     const [newNumber, setNewNumber] = useState(number)
     const [newCategory, setNewCategory] = useState(category)

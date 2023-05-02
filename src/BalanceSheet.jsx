@@ -26,7 +26,7 @@ export const BalanceSheet = () =>{
     const auth = getAuth();   
     const [alert, setAlert] = useState(variants.at(0))
     const [showAlert, setShowAlert] = useState(false) 
-    const [newDateTime, setNewDateTime] = useState(Date)
+    const [newDateTime, setNewDateTime] = useState(new Date())
     const [refid, setrefid] = useState(0);
     const domEl = useRef(null);
 

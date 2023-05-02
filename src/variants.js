@@ -21,7 +21,7 @@ export const variants = [
         secondaryColor: "#F16360",
         symbol: "error",
         title: "Error",
-        text: "Please enter valid name/number",
+        text: "Please enter a 4 digit number",
       },
        //Missing debits or credits 3
        { 

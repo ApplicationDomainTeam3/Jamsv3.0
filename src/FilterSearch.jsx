@@ -32,10 +32,10 @@ export const FilterSearch = () => {
 
 
 const filteredDocsByDate = filteredDocs?.filter((doc) => {
-    const docDate = moment(doc.dateTime);
+    const docDate = moment(doc.dateTime.toString());
     return docDate.isBetween(moment(dateRange.startDate), moment(dateRange.endDate), 'day', '[]');
   });
-  
+ 
  
 
   const rangeFilteredDocs = filteredDocs?.filter((doc) => {
@@ -43,7 +43,9 @@ const filteredDocsByDate = filteredDocs?.filter((doc) => {
     let date = moment(doc.dateTime);
     return date.isBetween(startDate, endDate, null, '[]');
   });
+ 
 
+  
 
   function TableWithFilter() {
     return (
@@ -64,7 +66,7 @@ const filteredDocsByDate = filteredDocs?.filter((doc) => {
               <td>{doc.category}</td>
               <td>{doc.user}</td>
               <td>{doc.approved}</td>
-              <td>{doc.dateTime}</td> 
+              <td>{doc.dateTime.toDate().toLocaleString()}</td> 
               <td>{doc.pr}</td>
             </tr>
           ))}

@@ -32,7 +32,7 @@ export const JournalEntry = ()=>{
     const [debits, setDebits] = useState([])
     const [description, setDescription] = useState("")
     const [jeNum, setjeNum] = useState(0);
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState(new Date());
     const [files, setFiles] = useState("");
     const [alert, setAlert] = useState(variants.at(0))
     const [showAlert, setShowAlert] = useState(false)

@@ -38,7 +38,7 @@ export const AddAccount = () =>{
     const [newDebit, setNewDebit] = useState(0)
     const [newIB, setNewIB] = useState(0)
     const [newDescription, setNewDescription] = useState("")
-    const [newDateTime, setNewDateTime] = useState(Date)
+    const [newDateTime, setNewDateTime] = useState(new Date());
     const [authUser, setAuthuser] = useState(null);
     const [refid, setrefid] = useState('')
     const [approved, setApproved] = useState(false);
