@@ -42,7 +42,7 @@ export const DashMessages = () => {
                 </tr>
             </thead>
             <tbody>
-                {jewaiting &&
+                {jewaiting && 
                 <>
                 <td><h4>New Journal Entries waiting for approval!</h4></td>
                 </>
