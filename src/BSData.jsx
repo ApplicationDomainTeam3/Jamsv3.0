@@ -180,9 +180,9 @@ useEffect(() => {
                 <tbody>
                     <tr>
                         <td>
-                        <h4>Equity as Percentage of Total:</h4>
+                        <h4>Equity as</h4><h4> Percentage of Total:</h4>
                         </td>
-                        <td><h4>{equityperctotal}%</h4></td>
+                        <td><h4>{equityperctotal.toFixed(2)}%</h4></td>
                     </tr>
                 </tbody>
             </Table>

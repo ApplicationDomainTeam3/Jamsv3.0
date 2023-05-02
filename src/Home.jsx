@@ -12,6 +12,9 @@ import menuLogo from './img/JAMS_1563X1563.png'
 import Table from 'react-bootstrap/Table';
 import { IncomeData } from "./IncomeData";
 import {BSData} from "./BSData"
+import {db} from './firestore';
+import { collection, deleteDoc, doc} from "firebase/firestore"
+import { DashMessages } from "./DashMessages";
 
 
 
@@ -63,6 +66,29 @@ export const Home= () => {
 
     }, [authUser, userUID, role]);
 
+    ////////Notifications/////////////
+    const notificationsCollectionRef = collection(db, "mnotifications")
+    const [notifications, setNotifications] = useState([])
+    const [notifCount, setNotifCount] = useState(0)
+
+    const removeNotification = async(id) => {
+        const notificationDoc = doc(db, "mnotifications", id)
+        await deleteDoc(notificationDoc);        
+    }
+
+    useEffect(() => {
+
+        const getNotifications = async () => {
+            const data = await getDocs(notificationsCollectionRef);
+            
+            setNotifications(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+            
+           
+        };
+
+        getNotifications();
+    }, []);
+
     return (
         <>
         <div className = "big-logo">
@@ -80,10 +106,16 @@ export const Home= () => {
             <AccountantHome />
         }
        </div>
-       <div className="financial-ratios-container">
-        <h2>Financial Ratio Analysis</h2>
-        <IncomeData/>
-        <BSData/>
+       <div className="column-container-invis">
+            <div className="financial-ratios-container">
+            <h2>Financial Ratio Analysis</h2>
+            <IncomeData/>
+            <BSData/>
+            </div>
+            <div className="financial-ratios-container">
+            <h2>Messages</h2>
+            <DashMessages/>
+            </div>
         </div>
         </>
         
