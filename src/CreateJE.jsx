@@ -70,7 +70,7 @@ useEffect(() => {
         setrefid(newid.toString());
         console.log("the new ref id is ", refid)
         setPostReference(uuidv4().toString());
-        console.log("The PR is ", postReference)
+        //console.log("The PR is ", postReference)
         
         
        

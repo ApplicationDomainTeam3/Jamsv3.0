@@ -31,6 +31,7 @@
     "moment": "^2.29.4",
     "node-polyfill-webpack-plugin": "^2.0.1",
     "path-browserify": "^1.0.1",
+    "popup": "^0.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-calendar": "^4.2.1",
