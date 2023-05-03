@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./modal.css";
 import { Link } from 'react-router-dom';
-//import Eform from "./Popup/eform";
+import {Eform} from "./eform";
 
 
 //popup 
@@ -30,15 +30,7 @@ export function Modal() {
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
           
-                <Link to="popupform">
-            <h2>Send Email</h2>
-                 
-            
-            </Link>
-            <p>
-
-
-            </p>
+               <Eform/>
             <button className="close-modal" onClick={toggleModal}>
               CLOSE
             </button>
