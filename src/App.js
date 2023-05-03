@@ -1,5 +1,8 @@
 import { createBrowserRouter, createRoutesFromElements, Route, Link, Outlet, RouterProvider } from 'react-router-dom';
 import { createRoot } from "react-dom/client";
+import Help from "./Help";
+import Calendar from "./Calendar";
+
 
 import './NavbarStyles.css'
 import { Login } from './Login';
@@ -68,6 +71,17 @@ const router = createBrowserRouter([
     path: "adminhome",
     element: <AdminHome />
   },
+  
+  {
+    path: "Help",
+    element: <Help />,
+  },
+
+  {
+    path: "Calendar",
+    element: <Calendar />,
+  },
+
    {
     path: "managerhome",
     element: <ManagerHome />
