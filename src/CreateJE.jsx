@@ -65,9 +65,9 @@ useEffect(() => {
         const coll = collection(db, "journalEntries");
         const snapshot = await getCountFromServer(coll);
         console.log(snapshot.data());
-        
+        const newid = parseInt(snapshot.data().count+1)
         console.log(snapshot.data().count);
-        setrefid(snapshot.data().count.toString());
+        setrefid(newid.toString());
         console.log("the new ref id is ", refid)
         setPostReference(uuidv4().toString());
         console.log("The PR is ", postReference)
