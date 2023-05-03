@@ -9,11 +9,13 @@ import { variants } from "./variants";
 import * as htmlToImage from 'html-to-image';
 
 import Table from 'react-bootstrap/Table';
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 export const IncomeStatement = () =>{
    
     const [accounts, setAccounts] = useState([]);
     const accountsCollectionRef = collection(db,  "accounts");
+    const docs = useCollectionData(accountsCollectionRef)
     const [authUser, setAuthuser] = useState(null);
     const [role, setRole] = useState("")
     const [userUID, setuserUID] = useState("")

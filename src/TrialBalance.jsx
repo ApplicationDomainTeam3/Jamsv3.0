@@ -1,18 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import {db} from './firestore';
 import { collection, getDocs, getDoc, deleteDoc, doc, setDoc, updateDoc, getCountFromServer } from "firebase/firestore"
-import { IoIosCreate } from 'react-icons/io';
-import {Link, createSearchParams, useNavigate} from "react-router-dom"
-import { ImWarning } from 'react-icons/im';
-import { AiFillProfile } from 'react-icons/ai';
+
 import { usersCollectionRef } from './firebase';
 import { query, where } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Alert } from "./Alert";
 import { variants } from "./variants";
 import * as htmlToImage from 'html-to-image';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
-import { frdCollectionRef } from "./IncomeStatement";
+
 
 
 import Table from 'react-bootstrap/Table';
