@@ -56,12 +56,12 @@ import {
       >
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
-            <Heading fontSize={"4xl"}>Send email to the account</Heading>
+            <Heading fontSize={"4xl"}>Send Email</Heading>
            
           </Stack>
           <Box
             rounded={"lg"}
-            bg={useColorModeValue("white", "gray.700")}
+            bg={useColorModeValue("#603f8b", "gray.700")}
             boxShadow={"lg"}
             p={8}
           >
@@ -70,8 +70,10 @@ import {
                 <FormLabel>Email address</FormLabel>
                 <Input
                   type="email"
-                  placeholder="Receiver's Email Address"
+                  placeholder="Receipient Email "
+                  bg={useColorModeValue("white", "gray.700")}
                   onChange={(e) => setEmail(e.target.value)}
+                  color={"black"}
                 />
               </FormControl>
               <FormControl id="email">
@@ -79,26 +81,31 @@ import {
                 <Input
                   onChange={(e) => setSubject(e.target.value)}
                   type="text"
-                  placeholder="Enter the subject here..."
+                  placeholder="Subject Title"
+                  bg={useColorModeValue("white", "gray.700")}
+                  color={"black"}
                 />
               </FormControl>
               <FormControl id="text">
+                        
                 <FormLabel>Message</FormLabel>
                 <Textarea
+                  
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Enter your message here..."
+                  placeholder="Start Message"
+                  color={"black"}
                 />
               </FormControl>
               <Stack spacing={10}>
                 <Button
                   bg={"blue.400"}
-                  color={"white"}
+                  color={"black"}
                   _hover={{
                     bg: "blue.500",
                   }}
                   onClick={() => sendEmail()}
                 >
-                  Send Email
+                  Send
                 </Button>
               </Stack>
             </Stack>
