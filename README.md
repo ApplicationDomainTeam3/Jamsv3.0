@@ -1,4 +1,3 @@
-# Jamsv3.0
-Repo as of 2/28/2023
+# JAMS Accounting Application
 
-To get calendar component to work use command npm i react-calendar
+This is an accounting application similar to quickbooks where users can make journal entries to maintain ledgers and track business finances. It stores data using google Firebase. This application was created by Ashly Altman with some contributions from Stephan Mah, Jamar Harris, and Meghan Tribble. 
